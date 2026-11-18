@@ -4,8 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Сваха / Svaha — International Matchmaking & Dating Club in Europe</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.tailwindcss.com" onerror="loadFallbackTailwind()"></script>
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  <script>
+    // Резервная загрузка стилей, если основной CDN заблокирован расширением браузера
+    function loadFallbackTailwind() {
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4';
+      document.head.appendChild(s);
+    }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -1787,7 +1795,9 @@
 
     // Инициализация иконок, карточек и анимаций
     renderEvents('all');
-    lucide.createIcons();
+    if (window.lucide) {
+      lucide.createIcons();
+    }
     initScrollReveal();
     initBokehCanvas('hero-bokeh-canvas', 36);
     initBokehCanvas('evening-bokeh-canvas', 28);
