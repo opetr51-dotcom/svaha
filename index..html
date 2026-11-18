@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Сваха / Svaha — International Matchmaking & Dating Club in Europe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#A01D4A',    // Основной — бордово-розовый (Affinity)
+              secondary: '#F6ECE2',  // Дополнительный — кремово-бежевый (Affinity)
+              gold: '#D4AF37',       // Акцент — золотистый (Affinity)
+              bg: '#FFF9F4',         // Фоновый — светло-молочный (Affinity)
+              plum: '#26161E',       // Вечерний сливово-бордовый (Плакат)
+              plumLight: '#45192B',  // Тёплый бордово-вечерний оттенок
+              ink: '#2D1A22',        // Тёмный бордово-графитовый текст
+              muted: '#6B535B'       // Приглушённый тёплый оттенок
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Montserrat"', 'system-ui', 'sans-serif']
+          },
+          boxShadow: {
+            soft: '0 14px 36px -8px rgba(160, 29, 74, 0.12)',
+            gold: '0 12px 36px -6px rgba(212, 175, 55, 0.32)',
+            moon: '0 0 90px 25px rgba(212, 175, 55, 0.22)'
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #FFF9F4;
+      color: #2D1A22;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Вечерний сливово-бордовый градиент с лунным золотым свечением (вдохновлено плакатом) */
+    .twilight-hero-bg {
+      background:
+        radial-gradient(circle at 72% 44%, rgba(212, 175, 55, 0.24) 0%, rgba(160, 29, 74, 0.22) 32%, rgba(38, 22, 30, 0) 68%),
+        radial-gradient(circle at 18% 20%, rgba(160, 29, 74, 0.28) 0%, transparent 55%),
+        linear-gradient(135deg, #26161E 0%, #3A1726 52%, #24131B 100%);
+    }
+
+    .twilight-evening-bg {
+      background:
+        radial-gradient(circle at 50% 15%, rgba(212, 175, 55, 0.18) 0%, rgba(160, 29, 74, 0.18) 40%, transparent 72%),
+        linear-gradient(180deg, #2A1620 0%, #3E1828 50%, #26151D 100%);
+    }
+
+    /* Тёплая текстура дизайнерской бумаги для светлых секций */
+    .champagne-paper-bg {
+      background-color: #F6ECE2;
+      background-image:
+        radial-gradient(circle at 85% 15%, rgba(212, 175, 55, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 10% 85%, rgba(160, 29, 74, 0.07) 0%, transparent 45%),
+        radial-gradient(rgba(160, 29, 74, 0.045) 1px, transparent 0);
+      background-size: 100% 100%, 100% 100%, 22px 22px;
+    }
+
+    .milk-warm-bg {
+      background-color: #FFF9F4;
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.11) 0%, transparent 48%),
+        radial-gradient(circle at 90% 80%, rgba(246, 236, 226, 0.9) 0%, transparent 55%);
+    }
+
+    .calligraphic-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-reveal {
+      animation: fadeSlideUp 0.45s ease-out forwards;
+    }
+
+    @keyframes subtleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+    .emblem-float {
+      animation: subtleFloat 6s ease-in-out infinite;
+    }
+
+    /* Пульсирующее лунное свечение позади медальона */
+    @keyframes moonPulse {
+      0%, 100% { opacity: 0.24; transform: scale(1); }
+      50% { opacity: 0.44; transform: scale(1.06); }
+    }
+    .moon-aura {
+      animation: moonPulse 5.5s ease-in-out infinite;
+    }
+
+    /* Деликатный золотой блик (shimmer) для кнопок и эмблемы */
+    @keyframes goldShimmer {
+      0% { transform: translateX(-140%) skewX(-22deg); }
+      100% { transform: translateX(260%) skewX(-22deg); }
+    }
+    .btn-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-shimmer::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 45%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 249, 244, 0.32), rgba(212, 175, 55, 0.35), transparent);
+      transform: translateX(-140%) skewX(-22deg);
+      pointer-events: none;
+    }
+    .btn-shimmer:hover::after {
+      animation: goldShimmer 0.95s ease-out;
+    }
+
+    .emblem-shimmer {
+      position: relative;
+      overflow: hidden;
+      border-radius: 9999px;
+    }
+    .emblem-shimmer::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      width: 50%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+      transform: translateX(-160%) skewX(-20deg);
+      pointer-events: none;
+    }
+    .emblem-shimmer:hover::after {
+      animation: goldShimmer 1.15s ease-in-out;
+    }
+
+    /* Плавное приподнимание и золотое свечение карточек при наведении */
+    .card-luxe-hover {
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.38s ease, border-color 0.38s ease;
+    }
+    .card-luxe-hover:hover {
+      transform: translateY(-5px);
+      border-color: rgba(212, 175, 55, 0.85);
+      box-shadow: 0 18px 40px -10px rgba(212, 175, 55, 0.24), 0 10px 24px -8px rgba(160, 29, 74, 0.16);
+    }
+
+    /* Появление блоков при прокрутке (IntersectionObserver) */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .stagger-1 { transition-delay: 80ms; }
+    .stagger-2 { transition-delay: 160ms; }
+    .stagger-3 { transition-delay: 240ms; }
+    .stagger-4 { transition-delay: 320ms; }
+    .stagger-5 { transition-delay: 400ms; }
+    .stagger-6 { transition-delay: 480ms; }
+
+    /* Уважение системной настройки уменьшения движения */
+    @media (prefers-reduced-motion: reduce) {
+      .emblem-float,
+      .moon-aura,
+      .animate-reveal {
+        animation: none !important;
+      }
+      .btn-shimmer::after,
+      .emblem-shimmer::after {
+        display: none !important;
+      }
+      .reveal-on-scroll {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .card-luxe-hover {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-brand-primary selection:text-white overflow-x-hidden">
+
+  <!-- ЛИПКАЯ ШАПКА САЙТА -->
+  <header class="sticky top-0 z-40 bg-[#26161E]/95 backdrop-blur-md border-b border-brand-gold/30 text-[#FFF9F4]">
+    <!-- Прогресс-бар прокрутки страницы -->
+    <div class="w-full h-[2.5px] bg-transparent overflow-hidden">
+      <div id="scroll-progress" class="h-full w-0 bg-gradient-to-r from-brand-primary via-brand-gold to-[#F3D878] transition-[width] duration-150 ease-out"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20 gap-2">
+        <!-- Мини-эмблема и название -->
+        <a href="#" class="flex items-center gap-2 sm:gap-3 group min-w-0">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-full bg-brand-secondary border-2 border-brand-gold flex items-center justify-center shadow-gold group-hover:scale-105 transition-transform relative overflow-hidden">
+            <span class="calligraphic-title text-xl sm:text-2xl text-brand-primary leading-none pr-0.5">С</span>
+            <span class="absolute bottom-1 w-4 sm:w-5 h-[1px] bg-brand-gold"></span>
+          </div>
+          <div class="truncate">
+            <div class="calligraphic-title text-2xl sm:text-3xl text-[#FFF9F4] group-hover:text-brand-gold transition-colors leading-none">Сваха</div>
+            <p class="hidden sm:block text-[11px] uppercase tracking-widest text-brand-gold/90 mt-0.5" data-i18n="brandSubtitle">Интернациональный клуб</p>
+          </div>
+        </a>
+
+        <!-- Навигация для десктопа -->
+        <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-[#F6ECE2]/90">
+          <a href="#ai-compatibility" class="hover:text-brand-gold transition-colors" data-i18n="navAi">ИИ-совместимость</a>
+          <a href="#evening-format" class="hover:text-brand-gold transition-colors" data-i18n="navFormat">Атмосфера вечеров</a>
+          <a href="#events" class="hover:text-brand-gold transition-colors" data-i18n="navEvents">Афиша Европы</a>
+          <a href="#membership" class="hover:text-brand-gold transition-colors" data-i18n="navCards">Клубные карты</a>
+        </nav>
+
+        <!-- Переключатель 3 языков [RU | DE | EN] и CTA -->
+        <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          <div class="inline-flex rounded-full bg-[#3A1D29] p-0.5 sm:p-1 border border-brand-gold/50" role="group" aria-label="Language switcher">
+            <button id="lang-ru" onclick="setLanguage('ru')" class="px-2 sm:px-2.5 py-1 text-[11px] sm:text-xs font-bold rounded-full bg-brand-gold text-brand-plum transition-all">RU</button>
+            <button id="lang-de" onclick="setLanguage('de')" class="px-2 sm:px-2.5 py-1 text-[11px] sm:text-xs font-bold rounded-full text-[#F6ECE2] hover:text-brand-gold transition-all">DE</button>
+            <button id="lang-en" onclick="setLanguage('en')" class="px-2 sm:px-2.5 py-1 text-[11px] sm:text-xs font-bold rounded-full text-[#F6ECE2] hover:text-brand-gold transition-all">EN</button>
+          </div>
+
+          <button onclick="openModal('membership', getT('modalDefaultTitle'))" class="btn-shimmer hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-primary text-white text-sm font-semibold border border-brand-gold/40 shadow-soft hover:bg-[#B82256] active:scale-[0.98] transition-all">
+            <span data-i18n="ctaJoin">Вступить в клуб</span>
+          </button>
+
+          <!-- Кнопка мобильного меню -->
+          <button onclick="toggleMobileMenu()" class="lg:hidden p-2 sm:p-2.5 rounded-xl bg-[#3A1D29] text-brand-gold border border-brand-gold/40" aria-label="Menu">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Выпадающее мобильное меню -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-[#2D1721] border-b border-brand-gold/40 px-4 pt-3 pb-5 space-y-3 text-[#F6ECE2]">
+      <a href="#ai-compatibility" onclick="toggleMobileMenu()" class="block py-2 text-sm font-medium hover:text-brand-gold" data-i18n="navAi">ИИ-совместимость</a>
+      <a href="#evening-format" onclick="toggleMobileMenu()" class="block py-2 text-sm font-medium hover:text-brand-gold" data-i18n="navFormat">Атмосфера вечеров</a>
+      <a href="#events" onclick="toggleMobileMenu()" class="block py-2 text-sm font-medium hover:text-brand-gold" data-i18n="navEvents">Афиша Европы</a>
+      <a href="#membership" onclick="toggleMobileMenu()" class="block py-2 text-sm font-medium hover:text-brand-gold" data-i18n="navCards">Клубные карты</a>
+      <button onclick="toggleMobileMenu(); openModal('membership', getT('modalDefaultTitle'))" class="w-full py-3 rounded-full bg-brand-primary text-white text-sm font-semibold border border-brand-gold/40">
+        <span data-i18n="ctaJoin">Вступить в клуб</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ПЕРВЫЙ ЭКРАН (HERO) В АТМОСФЕРЕ ВЕЧЕРНЕЙ АФИШИ И ЗОЛОТОЙ ЛУНЫ -->
+  <section class="relative overflow-hidden twilight-hero-bg text-[#FFF9F4] pt-10 pb-16 lg:pt-16 lg:pb-24">
+    <!-- Canvas с парящими золотистыми частицами боке -->
+    <canvas id="hero-bokeh-canvas" class="pointer-events-none absolute inset-0 w-full h-full z-0" aria-hidden="true"></canvas>
+
+    <!-- Декоративные звёздные блики -->
+    <div class="pointer-events-none absolute top-14 left-10 w-2 h-2 rounded-full bg-brand-gold/50 blur-[1px]"></div>
+    <div class="pointer-events-none absolute top-32 right-1/3 w-1.5 h-1.5 rounded-full bg-brand-gold/70"></div>
+    <div class="pointer-events-none absolute bottom-20 left-1/4 w-2.5 h-2.5 rounded-full bg-brand-primary/60 blur-[1px]"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        
+        <!-- Левая колонка: Главный посыл -->
+        <div class="lg:col-span-7 space-y-5 sm:space-y-6 reveal-on-scroll min-w-0">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#3B1B29]/90 border border-brand-gold/60 text-[11px] sm:text-xs font-semibold text-brand-gold shadow-sm max-w-full">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 shrink-0 text-brand-gold"></i>
+            <span class="truncate" data-i18n="heroBadge">Европейский клуб знакомств • Liebe in jedem Alter • Love at any age</span>
+          </div>
+
+          <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#FFF9F4] leading-[1.12] break-words" data-i18n="heroTitle">
+            Подбор партнёра по душе, судьбе и общим ценностям
+          </h1>
+
+          <p class="text-base sm:text-lg text-[#F6ECE2]/90 leading-relaxed max-w-2xl" data-i18n="heroDesc">
+            Объединяем сердца в Германии, Австрии, Чехии, Испании и по всей Европе. Без случайных свайпов — с личным участием Свахи, ИИ-анализом совместимости по дате рождения и тёплыми живыми вечерами с музыкой и танцами.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 pt-2">
+            <a href="#ai-compatibility" class="btn-shimmer inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-brand-primary text-white font-semibold text-sm sm:text-base border border-brand-gold/50 shadow-gold hover:bg-[#B82256] transition-all text-center">
+              <span data-i18n="heroBtnPrimary">Пройти ИИ-тест совместимости</span>
+              <i data-lucide="arrow-down" class="w-4 h-4"></i>
+            </a>
+            <a href="#evening-format" class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-[#3A1C29]/90 text-[#FFF9F4] font-semibold text-sm sm:text-base border border-brand-gold/70 hover:bg-[#4B2335] transition-all text-center">
+              <i data-lucide="wine" class="w-4 h-4 text-brand-gold"></i>
+              <span data-i18n="heroBtnSecondary">Как проходят живые вечера</span>
+            </a>
+          </div>
+
+          <!-- Прямые мессенджеры с визитки и плаката -->
+          <div class="pt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#F6ECE2]/85">
+            <span class="flex items-center gap-1.5">
+              <i data-lucide="shield-check" class="w-4 h-4 text-brand-gold"></i>
+              <span data-i18n="heroNote1">Знакомство только по обоюдному согласию</span>
+            </span>
+            <span class="hidden sm:inline text-brand-gold">•</span>
+            <a href="https://t.me/Svaha_bot" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-brand-gold hover:underline font-medium">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              <span>Telegram: @Svaha_bot</span>
+            </a>
+            <span class="hidden sm:inline text-brand-gold">•</span>
+            <a href="https://wa.me/4916093492251" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-brand-gold hover:underline font-medium">
+              <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+              <span>WhatsApp: +49 160 934 922 51</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Правая колонка: ДЕТАЛИЗИРОВАННАЯ КРУГЛАЯ ЭМБЛЕМА «СВАХА» (как на Сваха 2025-26.jpg) -->
+        <div class="lg:col-span-5 flex justify-center reveal-on-scroll stagger-2">
+          <div class="relative emblem-float max-w-full">
+            <!-- Пульсирующее лунное золотое свечение позади медальона -->
+            <div class="moon-aura absolute -inset-3 sm:-inset-5 rounded-full bg-brand-gold/30 blur-2xl"></div>
+            
+            <div class="emblem-shimmer relative w-[270px] h-[270px] sm:w-[370px] sm:h-[370px] rounded-full shadow-moon flex items-center justify-center mx-auto">
+              <svg viewBox="0 0 400 400" class="w-full h-full drop-shadow-2xl">
+                <defs>
+                  <!-- Кремово-жемчужный градиент медальона -->
+                  <radialGradient id="medallionBg" cx="50%" cy="42%" r="55%">
+                    <stop offset="0%" stop-color="#FFF9F4" />
+                    <stop offset="68%" stop-color="#F6ECE2" />
+                    <stop offset="100%" stop-color="#EAD8C7" />
+                  </radialGradient>
+
+                  <!-- Золотой металлический градиент -->
+                  <linearGradient id="goldFoil" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#F3D878" />
+                    <stop offset="45%" stop-color="#D4AF37" />
+                    <stop offset="100%" stop-color="#A8831E" />
+                  </linearGradient>
+
+                  <!-- Кремово-атласный градиент левого банта -->
+                  <linearGradient id="creamBow" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FFFDFB" />
+                    <stop offset="55%" stop-color="#EAD7C6" />
+                    <stop offset="100%" stop-color="#C9AF9B" />
+                  </linearGradient>
+
+                  <!-- Рубиновое вино -->
+                  <linearGradient id="rubyWine" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#D92B63" />
+                    <stop offset="100%" stop-color="#7A1135" />
+                  </linearGradient>
+
+                  <!-- Дуги для кругового текста -->
+                  <path id="topCircleText" d="M 48,200 A 152,152 0 1,1 352,200" />
+                  <path id="bottomLeftArc" d="M 40,210 A 160,160 0 0,0 165,356" />
+                  <path id="bottomRightArc" d="M 235,356 A 160,160 0 0,0 360,210" />
+                </defs>
+
+                <!-- Основа медальона -->
+                <circle cx="200" cy="200" r="194" fill="url(#medallionBg)" stroke="url(#goldFoil)" stroke-width="3.5" />
+                <circle cx="200" cy="200" r="185" fill="none" stroke="#D4AF37" stroke-width="1" stroke-dasharray="3 3" opacity="0.85" />
+
+                <!-- Искорки / звёздочки вокруг логотипа как на эскизе -->
+                <g fill="#FFFFFF" opacity="0.85">
+                  <circle cx="135" cy="115" r="2.5" />
+                  <circle cx="268" cy="112" r="2.2" />
+                  <circle cx="105" cy="195" r="2" />
+                  <circle cx="298" cy="192" r="2.5" />
+                  <circle cx="200" cy="95" r="3" />
+                </g>
+
+                <!-- Верхняя круговая надпись: ЛЮБОВЬ - В ЛЮБОМ ВОЗРАСТЕ -->
+                <text fill="#C59B27" font-size="16.5" font-weight="700" letter-spacing="2.8" font-family="Montserrat, sans-serif">
+                  <textPath href="#topCircleText" startOffset="50%" text-anchor="middle">
+                    ЛЮБОВЬ - В ЛЮБОМ ВОЗРАСТЕ
+                  </textPath>
+                </text>
+
+                <!-- Нижняя левая надпись: love at any age -->
+                <text fill="#9E3B2B" font-size="15.5" font-weight="600" letter-spacing="1.2" font-family="Montserrat, sans-serif">
+                  <textPath href="#bottomLeftArc" startOffset="48%" text-anchor="middle">
+                    love at any age
+                  </textPath>
+                </text>
+
+                <!-- Нижняя правая надпись: Liebe in jedem Alter -->
+                <text fill="#9E3B2B" font-size="15.5" font-weight="600" letter-spacing="1.1" font-family="Montserrat, sans-serif">
+                  <textPath href="#bottomRightArc" startOffset="52%" text-anchor="middle">
+                    Liebe in jedem Alter
+                  </textPath>
+                </text>
+
+                <!-- Главная каллиграфическая надпись «Сваха» -->
+                <text x="200" y="186" text-anchor="middle" fill="#B5173E" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" font-weight="700" font-size="86" letter-spacing="-1">
+                  Сваха
+                </text>
+                <!-- Золотые блёстки на буквах -->
+                <g fill="#F6D97A">
+                  <circle cx="122" cy="136" r="1.6" />
+                  <circle cx="132" cy="130" r="1.3" />
+                  <circle cx="182" cy="154" r="1.4" />
+                  <circle cx="238" cy="153" r="1.5" />
+                  <circle cx="274" cy="155" r="1.4" />
+                </g>
+
+                <!-- Подзаголовок внутри эмблемы (меняется при смене языка) -->
+                <text id="emblem-sub-1" x="200" y="213" text-anchor="middle" fill="#D13B5E" font-family="Montserrat, sans-serif" font-weight="600" font-size="12.5">
+                  Интернациональный клуб знакомств
+                </text>
+                <text id="emblem-sub-2" x="200" y="230" text-anchor="middle" fill="#D13B5E" font-family="Montserrat, sans-serif" font-weight="600" font-size="12.5">
+                  для души
+                </text>
+
+                <!-- ИЛЛЮСТРАЦИЯ ВНИЗУ: ДВА ЧОКАЮЩИХСЯ БОКАЛА И БАНТЫ (кремовый + золотой) -->
+                <g transform="translate(200, 298)">
+                  <!-- Золотые брызги шампанского сверху -->
+                  <path d="M -2,-52 Q 0,-64 6,-58" stroke="url(#goldFoil)" stroke-width="2" fill="none" stroke-linecap="round" />
+                  <circle cx="2" cy="-63" r="1.8" fill="#D4AF37" />
+                  <circle cx="-5" cy="-59" r="1.3" fill="#D4AF37" />
+
+                  <!-- Левый бокал (наклонён вправо, красное вино) -->
+                  <g transform="rotate(14, -14, -20)">
+                    <path d="M -23,-48 L -7,-48 L -9,-16 C -10,-9 -20,-9 -21,-16 Z" fill="rgba(255,255,255,0.45)" stroke="#B8A69B" stroke-width="1.2" />
+                    <path d="M -21.5,-34 C -17,-37 -12,-31 -8.5,-34 L -9.5,-16 C -10.5,-10 -19.5,-10 -20.5,-16 Z" fill="url(#rubyWine)" />
+                    <line x1="-15" y1="-10" x2="-15" y2="26" stroke="#C8B6AA" stroke-width="2.2" />
+                    <ellipse cx="-15" cy="26" rx="12" ry="3.2" fill="rgba(255,255,255,0.65)" stroke="#B8A69B" stroke-width="1.1" />
+                  </g>
+
+                  <!-- Правый бокал (наклонён влево, золотое шампанское) -->
+                  <g transform="rotate(-14, 14, -20)">
+                    <path d="M 7,-48 L 23,-48 L 21,-16 C 20,-9 10,-9 9,-16 Z" fill="rgba(255,255,255,0.45)" stroke="#C9B06B" stroke-width="1.2" />
+                    <path d="M 8.5,-35 C 13,-32 17,-37 21.5,-34 L 20.5,-16 C 19.5,-10 10.5,-10 9.5,-16 Z" fill="#F3D878" opacity="0.85" />
+                    <line x1="15" y1="-10" x2="15" y2="26" stroke="#D4AF37" stroke-width="2.2" />
+                    <ellipse cx="15" cy="26" rx="12" ry="3.2" fill="rgba(255,255,255,0.65)" stroke="#D4AF37" stroke-width="1.1" />
+                  </g>
+
+                  <!-- Левый атласный кремово-жемчужный бант -->
+                  <g transform="translate(-19, 10) rotate(-6)">
+                    <!-- Ленты вниз -->
+                    <path d="M -2,2 L -16,28 L -8,30 L 0,6 Z" fill="url(#creamBow)" stroke="#BFA592" stroke-width="0.7" />
+                    <path d="M 2,2 L 12,29 L 4,31 L -1,6 Z" fill="url(#creamBow)" stroke="#BFA592" stroke-width="0.7" />
+                    <!-- Петли банта -->
+                    <path d="M 0,0 C -18,-14 -26,4 -4,4 Z" fill="url(#creamBow)" stroke="#BFA592" stroke-width="0.8" />
+                    <path d="M 0,0 C 18,-14 26,4 4,4 Z" fill="url(#creamBow)" stroke="#BFA592" stroke-width="0.8" />
+                    <!-- Узелок -->
+                    <rect x="-3.5" y="-3" width="7" height="7" rx="2" fill="#EAD7C6" stroke="#BFA592" stroke-width="0.8" />
+                  </g>
+
+                  <!-- Правый атласный золотой бант -->
+                  <g transform="translate(19, 12) rotate(7)">
+                    <!-- Ленты вниз -->
+                    <path d="M -2,2 L -12,29 L -4,31 L 1,6 Z" fill="url(#goldFoil)" stroke="#9C7818" stroke-width="0.7" />
+                    <path d="M 2,2 L 16,28 L 8,30 L 0,6 Z" fill="url(#goldFoil)" stroke="#9C7818" stroke-width="0.7" />
+                    <!-- Петли банта -->
+                    <path d="M 0,0 C -18,-14 -26,4 -4,4 Z" fill="url(#goldFoil)" stroke="#9C7818" stroke-width="0.8" />
+                    <path d="M 0,0 C 18,-14 26,4 4,4 Z" fill="url(#goldFoil)" stroke="#9C7818" stroke-width="0.8" />
+                    <!-- Узелок -->
+                    <rect x="-3.5" y="-3" width="7" height="7" rx="2" fill="#E5C158" stroke="#9C7818" stroke-width="0.8" />
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Полоса достижений и доверия в вечернем стиле -->
+      <div class="mt-12 sm:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div class="reveal-on-scroll stagger-1 card-luxe-hover bg-[#361A27]/85 backdrop-blur-sm rounded-2xl p-4 sm:p-5 border border-brand-gold/40 text-center">
+          <div class="font-serif text-2xl sm:text-3xl font-bold text-brand-gold">14+</div>
+          <div class="text-xs sm:text-sm text-[#F6ECE2]/90 mt-1" data-i18n="stat1">Городов Европы с живыми встречами</div>
+        </div>
+        <div class="reveal-on-scroll stagger-2 card-luxe-hover bg-[#361A27]/85 backdrop-blur-sm rounded-2xl p-4 sm:p-5 border border-brand-gold/40 text-center">
+          <div class="font-serif text-2xl sm:text-3xl font-bold text-brand-gold">32 → 6</div>
+          <div class="text-xs sm:text-sm text-[#F6ECE2]/90 mt-1" data-i18n="stat2">Пар сложилось на вечере в Гамбурге</div>
+        </div>
+        <div class="reveal-on-scroll stagger-3 card-luxe-hover bg-[#361A27]/85 backdrop-blur-sm rounded-2xl p-4 sm:p-5 border border-brand-gold/40 text-center">
+          <div class="font-serif text-2xl sm:text-3xl font-bold text-brand-gold">20–75</div>
+          <div class="text-xs sm:text-sm text-[#F6ECE2]/90 mt-1" data-i18n="stat3">Возраст гостей на наших вечерах</div>
+        </div>
+        <div class="reveal-on-scroll stagger-4 card-luxe-hover bg-[#361A27]/85 backdrop-blur-sm rounded-2xl p-4 sm:p-5 border border-brand-gold/40 text-center">
+          <div class="font-serif text-2xl sm:text-3xl font-bold text-brand-gold">GDPR</div>
+          <div class="text-xs sm:text-sm text-[#F6ECE2]/90 mt-1" data-i18n="stat4">Полная конфиденциальность анкет</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ИНТЕРАКТИВНЫЙ ИИ-СЕРВИС: Портрет совместимости и подбор кандидатов -->
+  <section id="ai-compatibility" class="py-16 lg:py-24 champagne-paper-bg border-y border-brand-gold/40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-bg border border-brand-gold text-xs font-semibold uppercase tracking-wider text-brand-primary mb-3">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-gold"></i>
+          <span data-i18n="aiBadge">Бесплатный онлайн-сервис клуба</span>
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-primary" data-i18n="aiTitle">
+          ИИ-портрет совместимости по дате рождения и ценностям
+        </h2>
+        <p class="text-sm sm:text-base text-brand-muted mt-3" data-i18n="aiSubtitle">
+          Узнайте своё число жизненного пути, психологический профиль в отношениях и посмотрите реальные примеры подходящих кандидатов из нашей европейской базы.
+        </p>
+      </div>
+
+      <div class="bg-brand-bg rounded-3xl p-6 sm:p-10 shadow-soft border border-brand-gold/60 reveal-on-scroll stagger-1">
+        <form id="compatibility-form" onsubmit="calculateCompatibility(event)" class="space-y-6">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- Имя -->
+            <div>
+              <label for="user-name" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-2" data-i18n="labelName">Ваше имя</label>
+              <input type="text" id="user-name" required placeholder="Елена / Elena" class="w-full px-4 py-3 rounded-xl bg-brand-secondary/70 border border-brand-gold/40 focus:border-brand-primary focus:outline-none text-sm" />
+            </div>
+
+            <!-- Дата рождения -->
+            <div>
+              <label for="user-birthdate" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-2" data-i18n="labelBirth">Дата рождения</label>
+              <input type="date" id="user-birthdate" required value="1976-05-14" class="w-full px-4 py-3 rounded-xl bg-brand-secondary/70 border border-brand-gold/40 focus:border-brand-primary focus:outline-none text-sm" />
+            </div>
+
+            <!-- Город в Европе -->
+            <div>
+              <label for="user-city" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-2" data-i18n="labelCity">Ваш город / регион</label>
+              <select id="user-city" class="w-full px-4 py-3 rounded-xl bg-brand-secondary/70 border border-brand-gold/40 focus:border-brand-primary focus:outline-none text-sm">
+                <option value="Hamburg">Hamburg / Гамбург</option>
+                <option value="Berlin">Berlin / Берлин</option>
+                <option value="Munich">München / Мюнхен</option>
+                <option value="Vienna">Wien / Вена</option>
+                <option value="Prague">Praha / Прага</option>
+                <option value="Alicante">Alicante / Аликанте</option>
+              </select>
+            </div>
+
+            <!-- Цель знакомства -->
+            <div>
+              <label for="user-looking" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-2" data-i18n="labelLooking">Цель знакомства</label>
+              <select id="user-looking" class="w-full px-4 py-3 rounded-xl bg-brand-secondary/70 border border-brand-gold/40 focus:border-brand-primary focus:outline-none text-sm">
+                <option value="serious" data-i18n="optSerious">Серьёзные отношения и семья</option>
+                <option value="soul" data-i18n="optSoul">Душевное общение и близость</option>
+                <option value="travel" data-i18n="optTravel">Спутник для путешествий и досуга</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Выбор ценностей -->
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-2.5" data-i18n="labelValues">Что для вас особенно важно в союзе? (выберите до 3 пунктов)</label>
+            <div id="values-container" class="flex flex-wrap gap-2.5">
+              <button type="button" onclick="toggleValueTag(this)" data-val-key="valHome" class="value-tag active px-4 py-2 rounded-full text-xs sm:text-sm font-medium border border-brand-primary bg-brand-primary text-white transition-all">Семейный уют и тепло</button>
+              <button type="button" onclick="toggleValueTag(this)" data-val-key="valCulture" class="value-tag active px-4 py-2 rounded-full text-xs sm:text-sm font-medium border border-brand-primary bg-brand-primary text-white transition-all">Культура, театр и музыка</button>
+              <button type="button" onclick="toggleValueTag(this)" data-val-key="valTravel" class="value-tag px-4 py-2 rounded-full text-xs sm:text-sm font-medium border border-brand-gold/60 bg-brand-secondary text-brand-ink hover:border-brand-primary transition-all">Путешествия по Европе</button>
+              <button type="button" onclick="toggleValueTag(this)" data-val-key="valTrust" class="value-tag px-4 py-2 rounded-full text-xs sm:text-sm font-medium border border-brand-gold/60 bg-brand-secondary text-brand-ink hover:border-brand-primary transition-all">Надёжность и спокойствие</button>
+              <button type="button" onclick="toggleValueTag(this)" data-val-key="valNature" class="value-tag px-4 py-2 rounded-full text-xs sm:text-sm font-medium border border-brand-gold/60 bg-brand-secondary text-brand-ink hover:border-brand-primary transition-all">Прогулки на природе</button>
+              <button type="button" onclick="toggleValueTag(this)" data-val-key="valHumor" class="value-tag px-4 py-2 rounded-full text-xs sm:text-sm font-medium border border-brand-gold/60 bg-brand-secondary text-brand-ink hover:border-brand-primary transition-all">Лёгкость и чувство юмора</button>
+            </div>
+          </div>
+
+          <div class="pt-3 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-brand-gold/30">
+            <p class="text-xs text-brand-muted" data-i18n="aiPrivacyHint">
+              Расчёт выполняется мгновенно. Ваши данные не публикуются в открытом доступе.
+            </p>
+            <button type="submit" class="btn-shimmer w-full sm:w-auto px-8 py-4 rounded-full bg-brand-primary text-white font-semibold text-sm sm:text-base shadow-soft hover:bg-[#88163E] transition-all flex items-center justify-center gap-2">
+              <span data-i18n="aiSubmitBtn">Рассчитать профиль и подобрать пары</span>
+              <i data-lucide="sparkles" class="w-4 h-4 text-brand-gold"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- Анимированный индикатор расчёта ИИ -->
+        <div id="ai-loading-bar" class="hidden mt-6 pt-6 border-t border-brand-gold/30 space-y-2.5 animate-reveal">
+          <div class="flex items-center justify-between text-xs font-semibold text-brand-primary">
+            <span data-i18n="aiCalculating">ИИ Свахи анализирует дату рождения, ценности и европейскую базу...</span>
+            <span id="ai-progress-percent">0%</span>
+          </div>
+          <div class="w-full h-2 rounded-full bg-brand-secondary overflow-hidden border border-brand-gold/40">
+            <div id="ai-progress-fill" class="h-full w-0 bg-gradient-to-r from-brand-primary via-brand-gold to-brand-primary transition-[width] duration-75"></div>
+          </div>
+        </div>
+
+        <!-- Блок результатов ИИ-анализа -->
+        <div id="ai-result-panel" class="hidden mt-8 pt-8 border-t-2 border-dashed border-brand-gold/50 animate-reveal">
+          <div class="grid lg:grid-cols-12 gap-8">
+            <!-- Левая часть: Нумерологический и психологический разбор -->
+            <div class="lg:col-span-5 bg-brand-secondary rounded-2xl p-6 border border-brand-gold/60 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider text-brand-primary" data-i18n="resBadge">Персональный разбор Свахи</span>
+                <span id="life-path-badge" class="px-3 py-1 rounded-full bg-brand-primary text-white text-xs font-bold">Число пути: 7</span>
+              </div>
+              <h3 id="result-archetype" class="font-serif text-2xl sm:text-3xl font-bold text-brand-primary"></h3>
+              <p id="result-description" class="text-sm text-brand-ink/90 leading-relaxed"></p>
+              <div class="p-4 rounded-xl bg-brand-bg border border-brand-gold/40">
+                <div class="text-xs font-semibold text-brand-primary mb-1" data-i18n="resAdviceTitle">Рекомендация по совместимости:</div>
+                <p id="result-advice" class="text-xs sm:text-sm text-brand-muted leading-relaxed"></p>
+              </div>
+            </div>
+
+            <!-- Правая часть: 3 подобранных профиля из базы -->
+            <div class="lg:col-span-7 space-y-4">
+              <div class="flex items-center justify-between">
+                <h4 class="font-serif text-2xl font-bold text-brand-ink" data-i18n="resMatchesTitle">Подходящие участники из базы</h4>
+                <span class="text-xs text-brand-muted" data-i18n="resVerified">Проверено лично</span>
+              </div>
+              <div id="matched-candidates-list" class="space-y-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- АТМОСФЕРА РЕАЛЬНЫХ ВСТРЕЧ (Express-Dating-Abend & Кейс Гамбурга) -->
+  <section id="evening-format" class="py-16 lg:py-24 twilight-evening-bg text-[#FFF9F4] relative overflow-hidden">
+    <!-- Canvas с парящими золотыми огоньками -->
+    <canvas id="evening-bokeh-canvas" class="pointer-events-none absolute inset-0 w-full h-full z-0" aria-hidden="true"></canvas>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-12 gap-10 items-center mb-12">
+        <div class="lg:col-span-7 space-y-4 reveal-on-scroll">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#3D1D2C] border border-brand-gold/60 text-xs font-semibold text-brand-gold">
+            <i data-lucide="heart" class="w-3.5 h-3.5 text-brand-gold"></i>
+            <span data-i18n="eveningBadge">Express-Dating-Abend • Живой формат</span>
+          </span>
+          <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#FFF9F4]" data-i18n="eveningTitle">
+            Как проходят наши вечера знакомств в Европе
+          </h2>
+          <p class="text-sm sm:text-base text-[#F6ECE2]/85 leading-relaxed" data-i18n="eveningDesc">
+            Это не формальный «конвейер свиданий», а душевный праздник, куда приходят гости от 20 до 75 лет. Ведущая бережно знакомит участников, помогает снять стеснение и создаёт атмосферу лёгкости и доверия.
+          </p>
+        </div>
+
+        <!-- Карточка реального кейса из Гамбурга -->
+        <div class="lg:col-span-5 reveal-on-scroll stagger-2">
+          <div class="card-luxe-hover bg-[#3A1C29]/90 backdrop-blur-md rounded-3xl p-6 sm:p-7 border-2 border-brand-gold/70 shadow-gold space-y-3">
+            <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-brand-gold">
+              <span data-i18n="caseBadge">Кейс • Гамбург</span>
+              <span>32 → 6</span>
+            </div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-bold text-[#FFF9F4]" data-i18n="caseTitle">
+              32 гостя и 6 сложившихся пар за один вечер
+            </h3>
+            <p class="text-xs sm:text-sm text-[#F6ECE2]/85 leading-relaxed" data-i18n="caseDesc">
+              Живая скрипка, приветственный бокал игристого, лёгкие игры на знакомство, сладкий стол с домашней выпечкой и танцы до позднего вечера.
+            </p>
+            <div class="pt-3 flex flex-wrap items-center gap-2.5 border-t border-brand-gold/30">
+              <a href="https://wa.me/4916093492251" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#3A1D29] text-brand-gold text-xs font-semibold border border-brand-gold/60 hover:bg-[#4B2335] transition-all">
+                <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+                <span>WhatsApp</span>
+              </a>
+              <button onclick="openModal('event', getT('modalNextEvening'))" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-brand-primary text-white text-xs font-semibold border border-brand-gold/40 hover:bg-[#B82256] transition-all">
+                <span data-i18n="caseSiteBtn">Оставить заявку</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 карточек деталей вечера из плаката и видео -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="reveal-on-scroll stagger-1 card-luxe-hover bg-[#361A27]/85 rounded-2xl p-6 border border-brand-gold/35">
+          <div class="w-11 h-11 rounded-xl bg-brand-primary/30 border border-brand-gold/50 flex items-center justify-center text-brand-gold mb-4">
+            <i data-lucide="wine" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-[#FFF9F4] mb-1.5" data-i18n="feat1Title">Приветственный бокал</h3>
+          <p class="text-xs sm:text-sm text-[#F6ECE2]/80 leading-relaxed" data-i18n="feat1Desc">
+            Каждого гостя при входе ждёт бокал игристого, сок или вода в подарок, чтобы вечер начался с улыбки и лёгкого тоста.
+          </p>
+        </div>
+
+        <div class="reveal-on-scroll stagger-2 card-luxe-hover bg-[#361A27]/85 rounded-2xl p-6 border border-brand-gold/35">
+          <div class="w-11 h-11 rounded-xl bg-brand-primary/30 border border-brand-gold/50 flex items-center justify-center text-brand-gold mb-4">
+            <i data-lucide="music" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-[#FFF9F4] mb-1.5" data-i18n="feat2Title">Живая скрипка и дискотека</h3>
+          <p class="text-xs sm:text-sm text-[#F6ECE2]/80 leading-relaxed" data-i18n="feat2Desc">
+            Романтические мелодии на живой скрипке сменяются зажигательными танцами под сеты DJ — лучший повод пригласить понравившегося человека.
+          </p>
+        </div>
+
+        <div class="reveal-on-scroll stagger-3 card-luxe-hover bg-[#361A27]/85 rounded-2xl p-6 border border-brand-gold/35">
+          <div class="w-11 h-11 rounded-xl bg-brand-primary/30 border border-brand-gold/50 flex items-center justify-center text-brand-gold mb-4">
+            <i data-lucide="sparkles" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-[#FFF9F4] mb-1.5" data-i18n="feat3Title">Party-Spiele и интерактив</h3>
+          <p class="text-xs sm:text-sm text-[#F6ECE2]/80 leading-relaxed" data-i18n="feat3Desc">
+            Весёлые командные игры, конкурсы и «почта симпатий» от ведущей позволяют естественно пообщаться со всеми гостями без неловких пауз.
+          </p>
+        </div>
+
+        <div class="reveal-on-scroll stagger-4 card-luxe-hover bg-[#361A27]/85 rounded-2xl p-6 border border-brand-gold/35">
+          <div class="w-11 h-11 rounded-xl bg-brand-primary/30 border border-brand-gold/50 flex items-center justify-center text-brand-gold mb-4">
+            <i data-lucide="coffee" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-[#FFF9F4] mb-1.5" data-i18n="feat4Title">Домашний сладкий стол</h3>
+          <p class="text-xs sm:text-sm text-[#F6ECE2]/80 leading-relaxed" data-i18n="feat4Desc">
+            Ароматный чай, кофе, фрукты и домашняя выпечка создают тёплую, почти семейную атмосферу, располагающую к открытым беседам.
+          </p>
+        </div>
+
+        <div class="reveal-on-scroll stagger-5 card-luxe-hover bg-[#361A27]/85 rounded-2xl p-6 border border-brand-gold/35">
+          <div class="w-11 h-11 rounded-xl bg-brand-primary/30 border border-brand-gold/50 flex items-center justify-center text-brand-gold mb-4">
+            <i data-lucide="users" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-[#FFF9F4] mb-1.5" data-i18n="feat5Title">Возраст 20–75 лет</h3>
+          <p class="text-xs sm:text-sm text-[#F6ECE2]/80 leading-relaxed" data-i18n="feat5Desc">
+            Любовь прекрасна в любом возрасте: мы формируем комфортные возрастные группы и следим за балансом мужчин и женщин в зале.
+          </p>
+        </div>
+
+        <div class="reveal-on-scroll stagger-6 card-luxe-hover bg-[#361A27]/85 rounded-2xl p-6 border border-brand-gold/35">
+          <div class="w-11 h-11 rounded-xl bg-brand-primary/30 border border-brand-gold/50 flex items-center justify-center text-brand-gold mb-4">
+            <i data-lucide="camera" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-[#FFF9F4] mb-1.5" data-i18n="feat6Title">Фотозона и бережность</h3>
+          <p class="text-xs sm:text-sm text-[#F6ECE2]/80 leading-relaxed" data-i18n="feat6Desc">
+            Красивая тематическая фотозона на память, а обмен контактами после вечера происходит деликатно через Сваху при взаимной симпатии.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- АФИША ЖИВЫХ ВСТРЕЧ ПО ЕВРОПЕ -->
+  <section id="events" class="py-16 lg:py-24 milk-warm-bg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 reveal-on-scroll">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-brand-gold" data-i18n="eventsEyebrow">Европейское турне клуба</span>
+          <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-primary mt-1" data-i18n="eventsTitle">
+            Живые встречи и камерные вечера в Европе
+          </h2>
+          <p class="text-sm sm:text-base text-brand-muted mt-2 max-w-2xl" data-i18n="eventsSubtitle">
+            Бронируйте место заранее, чтобы мы сохранили идеальный баланс дам и кавалеров на каждом вечере.
+          </p>
+        </div>
+
+        <!-- Фильтры по регионам Европы -->
+        <div class="flex flex-wrap gap-2" id="event-filters">
+          <button onclick="filterEvents('all', this)" data-i18n="filterAll" class="event-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-brand-primary text-white transition-all">Все города</button>
+          <button onclick="filterEvents('germany', this)" data-i18n="filterGermany" class="event-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-brand-secondary text-brand-ink border border-brand-gold/40 hover:border-brand-primary transition-all">Германия</button>
+          <button onclick="filterEvents('central', this)" data-i18n="filterCentral" class="event-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-brand-secondary text-brand-ink border border-brand-gold/40 hover:border-brand-primary transition-all">Центральная Европа</button>
+          <button onclick="filterEvents('south', this)" data-i18n="filterSouth" class="event-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-brand-secondary text-brand-ink border border-brand-gold/40 hover:border-brand-primary transition-all">Южная Европа</button>
+        </div>
+      </div>
+
+      <!-- Сетка мероприятий -->
+      <div id="events-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-300"></div>
+    </div>
+  </section>
+
+  <!-- КЛУБНЫЕ КАРТЫ И МОНЕТИЗАЦИЯ -->
+  <section id="membership" class="py-16 lg:py-24 champagne-paper-bg border-t border-brand-gold/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-gold" data-i18n="cardsEyebrow">Форматы участия</span>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-primary mt-1" data-i18n="cardsTitle">
+          Клубные карты для поиска пары в Европе
+        </h2>
+        <p class="text-sm sm:text-base text-brand-muted mt-3" data-i18n="cardsSubtitle">
+          Выберите комфортный формат: от бесплатного размещения анкеты в базе до персонального сопровождения Свахой.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8 items-stretch">
+        <!-- Тариф 1: Гостевой -->
+        <div class="reveal-on-scroll stagger-1 card-luxe-hover bg-brand-bg rounded-3xl p-8 border border-brand-gold/50 flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-brand-muted" data-i18n="tier1Tag">Базовый старт</div>
+            <h3 class="font-serif text-3xl font-bold text-brand-ink mt-1" data-i18n="tier1Name">Базовая анкета</h3>
+            <div class="mt-4 flex items-baseline gap-1">
+              <span class="font-serif text-4xl font-bold text-brand-primary">€0</span>
+              <span class="text-xs text-brand-muted" data-i18n="tier1Period">/ размещение в базе</span>
+            </div>
+            <p class="text-sm text-brand-muted mt-3" data-i18n="tier1Desc">Для тех, кто хочет познакомиться с атмосферой клуба и попасть в закрытый каталог анкет.</p>
+            <ul class="mt-6 space-y-3 text-sm text-brand-ink/90">
+              <li class="flex items-start gap-2.5"><span class="text-brand-gold font-bold">✓</span><span data-i18n="tier1F1">Размещение анкеты в закрытой базе клуба</span></li>
+              <li class="flex items-start gap-2.5"><span class="text-brand-gold font-bold">✓</span><span data-i18n="tier1F2">Базовый ИИ-портрет совместимости по дате рождения</span></li>
+              <li class="flex items-start gap-2.5"><span class="text-brand-gold font-bold">✓</span><span data-i18n="tier1F3">Доступ к анонсам встреч в Telegram-канале</span></li>
+            </ul>
+          </div>
+          <button onclick="openModal('membership', getT('tier1Name') + ' (€0)')" class="mt-8 w-full py-3.5 rounded-full bg-brand-secondary text-brand-primary font-semibold text-sm border border-brand-primary hover:bg-brand-primary hover:text-white transition-all" data-i18n="tier1Btn">
+            Оставить анкету бесплатно
+          </button>
+        </div>
+
+        <!-- Тариф 2: Клубная карта -->
+        <div class="reveal-on-scroll stagger-2 card-luxe-hover bg-brand-bg rounded-3xl p-8 border-2 border-brand-gold shadow-gold flex flex-col justify-between relative">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-brand-primary text-white text-xs font-semibold tracking-wide shadow-sm" data-i18n="tier2Badge">
+            Популярный выбор
+          </div>
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-brand-primary" data-i18n="tier2Tag">Активный подбор</div>
+            <h3 class="font-serif text-3xl font-bold text-brand-ink mt-1" data-i18n="tier2Name">Клубный абонемент</h3>
+            <div class="mt-4 flex items-baseline gap-1">
+              <span class="font-serif text-4xl font-bold text-brand-primary">€49</span>
+              <span class="text-xs text-brand-muted" data-i18n="tier2Period">/ месяц</span>
+            </div>
+            <p class="text-sm text-brand-muted mt-3" data-i18n="tier2Desc">Регулярный персональный подбор кандидатов от Свахи и доступ в закрытое сообщество.</p>
+            <ul class="mt-6 space-y-3 text-sm text-brand-ink/90">
+              <li class="flex items-start gap-2.5"><span class="text-brand-primary font-bold">✓</span><span data-i18n="tier2F1">1–2 проверенных кандидата в неделю с отчётом</span></li>
+              <li class="flex items-start gap-2.5"><span class="text-brand-primary font-bold">✓</span><span data-i18n="tier2F2">Обмен контактами при обоюдном согласии</span></li>
+              <li class="flex items-start gap-2.5"><span class="text-brand-primary font-bold">✓</span><span data-i18n="tier2F3">Доступ в закрытый клубный чат и онлайн-вечера</span></li>
+              <li class="flex items-start gap-2.5"><span class="text-brand-primary font-bold">✓</span><span data-i18n="tier2F4">Скидка 15% на билеты на живые встречи в Европе</span></li>
+            </ul>
+          </div>
+          <button onclick="openModal('membership', getT('tier2Name') + ' (€49/мес)')" class="btn-shimmer mt-8 w-full py-4 rounded-full bg-brand-primary text-white font-semibold text-sm shadow-soft hover:bg-[#88163E] transition-all" data-i18n="tier2Btn">
+            Оформить клубную карту
+          </button>
+        </div>
+
+        <!-- Тариф 3: VIP Сопровождение -->
+        <div class="reveal-on-scroll stagger-3 card-luxe-hover bg-brand-bg rounded-3xl p-8 border border-brand-gold/50 flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-brand-muted" data-i18n="tier3Tag">Личная работа</div>
+            <h3 class="font-serif text-3xl font-bold text-brand-ink mt-1" data-i18n="tier3Name">Персональное сопровождение</h3>
+            <div class="mt-4 flex items-baseline gap-1">
+              <span class="font-serif text-4xl font-bold text-brand-primary">€149</span>
+              <span class="text-xs text-brand-muted" data-i18n="tier3Period">/ месяц</span>
+            </div>
+            <p class="text-sm text-brand-muted mt-3" data-i18n="tier3Desc">Индивидуальная работа со Свахой, видеознакомство и приоритетный поиск по всей Европе.</p>
+            <ul class="mt-6 space-y-3 text-sm text-brand-ink/90">
+              <li class="flex items-start gap-2.5"><span class="text-brand-gold font-bold">✓</span><span data-i18n="tier3F1">Личная консультация-интервью со Свахой (45 мин)</span></li>
+              <li class="flex items-start gap-2.5"><span class="text-brand-gold font-bold">✓</span><span data-i18n="tier3F2">Глубокий ИИ + нумерологический разбор каждой пары</span></li>
+              <li class="flex items-start gap-2.5"><span class="text-brand-gold font-bold">✓</span><span data-i18n="tier3F3">Приоритетная бронь мест на закрытые вечера</span></li>
+              <li class="flex items-start gap-2.5"><span class="text-brand-gold font-bold">✓</span><span data-i18n="tier3F4">Обратная связь после каждого свидания</span></li>
+            </ul>
+          </div>
+          <button onclick="openModal('membership', getT('tier3Name') + ' (€149/мес)')" class="mt-8 w-full py-3.5 rounded-full bg-brand-secondary text-brand-primary font-semibold text-sm border border-brand-primary hover:bg-brand-primary hover:text-white transition-all" data-i18n="tier3Btn">
+            Записаться на VIP-знакомство
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПОДВАЛ САЙТА -->
+  <footer class="bg-[#26161E] text-[#F6ECE2] border-t border-brand-gold/40 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-8 items-center">
+        <div>
+          <div class="calligraphic-title text-4xl text-brand-gold">Сваха</div>
+          <p class="text-xs text-[#F6ECE2]/75 mt-1" data-i18n="footerTagline">Интернациональный клуб знакомств для души • Европа</p>
+        </div>
+
+        <div class="text-sm space-y-1.5">
+          <div>Email: <a href="mailto:svaha3001@gmail.com" class="text-brand-gold hover:underline">svaha3001@gmail.com</a></div>
+          <div>Telegram: <a href="https://t.me/Svaha_bot" target="_blank" rel="noopener noreferrer" class="text-brand-gold hover:underline">@Svaha_bot</a></div>
+          <div>WhatsApp: <a href="https://wa.me/4916093492251" target="_blank" rel="noopener noreferrer" class="text-brand-gold hover:underline">+49 160 934 922 51</a></div>
+        </div>
+
+        <div class="md:text-right text-xs text-[#F6ECE2]/70 space-y-1">
+          <div>Любовь в любом возрасте • Liebe in jedem Alter • Love at any age</div>
+          <div data-i18n="footerCopy">© 2026 Клуб «Сваха». Конфиденциальность и защита данных (GDPR / DSGVO).</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- УНИВЕРСАЛЬНОЕ МОДАЛЬНОЕ ОКНО -->
+  <div id="booking-modal" class="hidden fixed inset-0 z-50 bg-[#1B0D14]/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-brand-bg rounded-3xl max-w-lg w-full p-6 sm:p-8 border-2 border-brand-gold shadow-2xl relative animate-reveal max-h-[92vh] overflow-y-auto">
+      <button onclick="closeModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-brand-secondary text-brand-ink hover:text-brand-primary flex items-center justify-center font-bold" aria-label="Close">
+        ✕
+      </button>
+
+      <!-- Форма -->
+      <div id="modal-form-view">
+        <span id="modal-badge" class="inline-block px-3 py-1 rounded-full bg-brand-secondary border border-brand-gold text-xs font-semibold text-brand-primary mb-2">
+          Заявка в клуб
+        </span>
+        <h3 id="modal-title" class="font-serif text-3xl font-bold text-brand-primary">Оформление участия</h3>
+        <p id="modal-subtitle" class="text-xs sm:text-sm text-brand-muted mt-1" data-i18n="modalSubtitle">
+          Заполните контактные данные — Сваха свяжется с вами в Telegram или WhatsApp для подтверждения.
+        </p>
+
+        <form onsubmit="submitModalForm(event)" class="mt-5 space-y-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-brand-muted mb-1" data-i18n="mLabelName">Ваше имя *</label>
+              <input type="text" id="modal-name" required placeholder="Anna" class="w-full px-3.5 py-2.5 rounded-xl bg-brand-secondary/70 border border-brand-gold/40 text-sm focus:border-brand-primary focus:outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-brand-muted mb-1" data-i18n="mLabelAge">Возраст *</label>
+              <input type="number" id="modal-age" required min="20" max="80" placeholder="45" class="w-full px-3.5 py-2.5 rounded-xl bg-brand-secondary/70 border border-brand-gold/40 text-sm focus:border-brand-primary focus:outline-none" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-brand-muted mb-1" data-i18n="mLabelCity">Город в Европе *</label>
+              <input type="text" id="modal-city" required placeholder="Hamburg / Berlin" class="w-full px-3.5 py-2.5 rounded-xl bg-brand-secondary/70 border border-brand-gold/40 text-sm focus:border-brand-primary focus:outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-brand-muted mb-1" data-i18n="mLabelContact">Telegram или WhatsApp *</label>
+              <input type="text" id="modal-contact" required placeholder="@username / +49..." class="w-full px-3.5 py-2.5 rounded-xl bg-brand-secondary/70 border border-brand-gold/40 text-sm focus:border-brand-primary focus:outline-none" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-brand-muted mb-1" data-i18n="mLabelAbout">Коротко о себе и пожеланиях</label>
+            <textarea id="modal-about" rows="3" class="w-full px-3.5 py-2.5 rounded-xl bg-brand-secondary/70 border border-brand-gold/40 text-sm focus:border-brand-primary focus:outline-none"></textarea>
+          </div>
+
+          <label class="flex items-start gap-2.5 text-xs text-brand-muted cursor-pointer">
+            <input type="checkbox" required checked class="mt-0.5 accent-brand-primary" />
+            <span data-i18n="mGdpr">Согласен(на) на конфиденциальную обработку анкеты клубом «Сваха» (GDPR / DSGVO). Контакты не передаются без моего согласия.</span>
+          </label>
+
+          <button type="submit" class="w-full py-3.5 rounded-full bg-brand-primary text-white font-semibold text-sm shadow-soft hover:bg-[#88163E] transition-all" data-i18n="mSubmit">
+            Отправить заявку Свахе
+          </button>
+        </form>
+      </div>
+
+      <!-- Экран подтверждения -->
+      <div id="modal-success-view" class="hidden text-center py-6 space-y-4">
+        <div class="w-16 h-16 rounded-full bg-brand-secondary border-2 border-brand-gold text-brand-primary flex items-center justify-center mx-auto text-3xl">
+          ♥
+        </div>
+        <h3 class="font-serif text-3xl font-bold text-brand-primary" data-i18n="mSuccessTitle">Ваша заявка принята!</h3>
+        <p id="modal-success-text" class="text-sm text-brand-ink/85 leading-relaxed"></p>
+        <div class="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="https://wa.me/4916093492251" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-brand-secondary text-brand-primary border border-brand-gold text-xs font-semibold hover:bg-[#EFE1D3]">
+            WhatsApp: +49 160 934 922 51
+          </a>
+          <button onclick="closeModal()" class="px-6 py-2.5 rounded-full bg-brand-primary text-white text-xs font-semibold" data-i18n="mBackBtn">
+            Вернуться на сайт
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentLang = 'ru';
+
+    // Полный трёхъязычный словарь (RU / DE / EN)
+    const i18n = {
+      ru: {
+        brandSubtitle: 'Интернациональный клуб',
+        emblemSub1: 'Интернациональный клуб знакомств',
+        emblemSub2: 'для души',
+        navAi: 'ИИ-совместимость',
+        navFormat: 'Атмосфера вечеров',
+        navEvents: 'Афиша Европы',
+        navCards: 'Клубные карты',
+        ctaJoin: 'Вступить в клуб',
+        heroBadge: 'Европейский клуб знакомств • Liebe in jedem Alter • Love at any age',
+        heroTitle: 'Подбор партнёра по душе, судьбе и общим ценностям',
+        heroDesc: 'Объединяем сердца в Германии, Австрии, Чехии, Испании и по всей Европе. Без случайных свайпов — с личным участием Свахи, ИИ-анализом совместимости по дате рождения и тёплыми живыми вечерами с музыкой и танцами.',
+        heroBtnPrimary: 'Пройти ИИ-тест совместимости',
+        heroBtnSecondary: 'Как проходят живые вечера',
+        heroNote1: 'Знакомство только по обоюдному согласию',
+        stat1: 'Городов Европы с живыми встречами',
+        stat2: 'Пар сложилось на вечере в Гамбурге',
+        stat3: 'Возраст гостей на наших вечерах',
+        stat4: 'Полная конфиденциальность анкет',
+        aiBadge: 'Бесплатный онлайн-сервис клуба',
+        aiTitle: 'ИИ-портрет совместимости по дате рождения и ценностям',
+        aiSubtitle: 'Узнайте своё число жизненного пути, психологический профиль в отношениях и посмотрите реальные примеры подходящих кандидатов из нашей европейской базы.',
+        labelName: 'Ваше имя',
+        labelBirth: 'Дата рождения',
+        labelCity: 'Ваш город / регион',
+        labelLooking: 'Цель знакомства',
+        optSerious: 'Серьёзные отношения и семья',
+        optSoul: 'Душевное общение и близость',
+        optTravel: 'Спутник для путешествий и досуга',
+        labelValues: 'Что для вас особенно важно в союзе? (выберите до 3 пунктов)',
+        valHome: 'Семейный уют и тепло',
+        valCulture: 'Культура, театр и музыка',
+        valTravel: 'Путешествия по Европе',
+        valTrust: 'Надёжность и спокойствие',
+        valNature: 'Прогулки на природе',
+        valHumor: 'Лёгкость и чувство юмора',
+        aiPrivacyHint: 'Расчёт выполняется мгновенно. Ваши данные не публикуются в открытом доступе.',
+        aiSubmitBtn: 'Рассчитать профиль и подобрать пары',
+        aiCalculating: 'ИИ Свахи анализирует дату рождения, ценности и европейскую базу...',
+        resBadge: 'Персональный разбор Свахи',
+        resAdviceTitle: 'Рекомендация по совместимости:',
+        resMatchesTitle: 'Подходящие участники из базы',
+        resVerified: 'Проверено лично',
+        lifePathLabel: 'Число пути',
+        archetypePrefix: 'ваш архетип в союзе',
+        compatLabel: 'Совместимость',
+        photoHint: 'Фото открывается после взаимного согласия',
+        wantMeetBtn: 'Хочу познакомиться',
+        eveningBadge: 'Express-Dating-Abend • Живой формат',
+        eveningTitle: 'Как проходят наши вечера знакомств в Европе',
+        eveningDesc: 'Это не формальный «конвейер свиданий», а душевный праздник, куда приходят гости от 20 до 75 лет. Ведущая бережно знакомит участников, помогает снять стеснение и создаёт атмосферу лёгкости и доверия.',
+        caseBadge: 'Кейс • Гамбург',
+        caseTitle: '32 гостя и 6 сложившихся пар за один вечер',
+        caseDesc: 'Живая скрипка, приветственный бокал игристого, лёгкие игры на знакомство, сладкий стол с домашней выпечкой и танцы до позднего вечера.',
+        caseSiteBtn: 'Оставить заявку',
+        modalNextEvening: 'Ближайший вечер знакомств в Европе',
+        feat1Title: 'Приветственный бокал',
+        feat1Desc: 'Каждого гостя при входе ждёт бокал игристого, сок или вода в подарок, чтобы вечер начался с улыбки и лёгкого тоста.',
+        feat2Title: 'Живая скрипка и дискотека',
+        feat2Desc: 'Романтические мелодии на живой скрипке сменяются зажигательными танцами под сеты DJ — лучший повод пригласить понравившегося человека.',
+        feat3Title: 'Party-Spiele и интерактив',
+        feat3Desc: 'Весёлые командные игры, конкурсы и «почта симпатий» от ведущей позволяют естественно пообщаться со всеми гостями без неловких пауз.',
+        feat4Title: 'Домашний сладкий стол',
+        feat4Desc: 'Ароматный чай, кофе, фрукты и домашняя выпечка создают тёплую, почти семейную атмосферу, располагающую к открытым беседам.',
+        feat5Title: 'Возраст 20–75 лет',
+        feat5Desc: 'Любовь прекрасна в любом возрасте: мы формируем комфортные возрастные группы и следим за балансом мужчин и женщин в зале.',
+        feat6Title: 'Фотозона и бережность',
+        feat6Desc: 'Красивая тематическая фотозона на память, а обмен контактами после вечера происходит деликатно через Сваху при взаимной симпатии.',
+        eventsEyebrow: 'Европейское турне клуба',
+        eventsTitle: 'Живые встречи и камерные вечера в Европе',
+        eventsSubtitle: 'Бронируйте место заранее, чтобы мы сохранили идеальный баланс дам и кавалеров на каждом вечере.',
+        filterAll: 'Все города',
+        filterGermany: 'Германия',
+        filterCentral: 'Центральная Европа',
+        filterSouth: 'Южная Европа',
+        seatsLeftLabel: 'Осталось мест',
+        bookSeatBtn: 'Забронировать место',
+        cardsEyebrow: 'Форматы участия',
+        cardsTitle: 'Клубные карты для поиска пары в Европе',
+        cardsSubtitle: 'Выберите комфортный формат: от бесплатного размещения анкеты в базе до персонального сопровождения Свахой.',
+        tier1Tag: 'Базовый старт',
+        tier1Name: 'Базовая анкета',
+        tier1Period: '/ размещение в базе',
+        tier1Desc: 'Для тех, кто хочет познакомиться с атмосферой клуба и попасть в закрытый каталог анкет.',
+        tier1F1: 'Размещение анкеты в закрытой базе клуба',
+        tier1F2: 'Базовый ИИ-портрет совместимости по дате рождения',
+        tier1F3: 'Доступ к анонсам встреч в Telegram-канале',
+        tier1Btn: 'Оставить анкету бесплатно',
+        tier2Badge: 'Популярный выбор',
+        tier2Tag: 'Активный подбор',
+        tier2Name: 'Клубный абонемент',
+        tier2Period: '/ месяц',
+        tier2Desc: 'Регулярный персональный подбор кандидатов от Свахи и доступ в закрытое сообщество.',
+        tier2F1: '1–2 проверенных кандидата в неделю с отчётом',
+        tier2F2: 'Обмен контактами при обоюдном согласии',
+        tier2F3: 'Доступ в закрытый клубный чат и онлайн-вечера',
+        tier2F4: 'Скидка 15% на билеты на живые встречи в Европе',
+        tier2Btn: 'Оформить клубную карту',
+        tier3Tag: 'Личная работа',
+        tier3Name: 'Персональное сопровождение',
+        tier3Period: '/ месяц',
+        tier3Desc: 'Индивидуальная работа со Свахой, видеознакомство и приоритетный поиск по всей Европе.',
+        tier3F1: 'Личная консультация-интервью со Свахой (45 мин)',
+        tier3F2: 'Глубокий ИИ + нумерологический разбор каждой пары',
+        tier3F3: 'Приоритетная бронь мест на закрытые вечера',
+        tier3F4: 'Обратная связь после каждого свидания',
+        tier3Btn: 'Записаться на VIP-знакомство',
+        footerTagline: 'Интернациональный клуб знакомств для души • Европа',
+        footerCopy: '© 2026 Клуб «Сваха». Конфиденциальность и защита данных (GDPR / DSGVO).',
+        modalDefaultTitle: 'Вступить в клуб «Сваха»',
+        modalSubtitle: 'Заполните контактные данные — Сваха свяжется с вами в Telegram или WhatsApp для подтверждения.',
+        mLabelName: 'Ваше имя *',
+        mLabelAge: 'Возраст *',
+        mLabelCity: 'Город в Европе *',
+        mLabelContact: 'Telegram или WhatsApp *',
+        mLabelAbout: 'Коротко о себе и пожеланиях',
+        mGdpr: 'Согласен(на) на конфиденциальную обработку анкеты клубом «Сваха» (GDPR / DSGVO). Контакты не передаются без моего согласия.',
+        mSubmit: 'Отправить заявку Свахе',
+        mSuccessTitle: 'Ваша заявка принята!',
+        mBackBtn: 'Вернуться на сайт'
+      },
+      de: {
+        brandSubtitle: 'Internationaler Club',
+        emblemSub1: 'Internationaler Kennenlern-Club',
+        emblemSub2: 'für die Seele',
+        navAi: 'KI-Kompatibilität',
+        navFormat: 'Abend-Atmosphäre',
+        navEvents: 'Europa-Termine',
+        navCards: 'Clubkarten',
+        ctaJoin: 'Club beitreten',
+        heroBadge: 'Europäischer Kennenlern-Club • Liebe in jedem Alter • Love at any age',
+        heroTitle: 'Partnervermittlung mit Herz, Intuition und gemeinsamen Werten',
+        heroDesc: 'Wir verbinden Menschen in Deutschland, Österreich, Tschechien, Spanien und ganz Europa. Ohne oberflächliches Swipen — mit persönlicher Begleitung durch Swacha, KI-Kompatibilitätsanalyse und herzlichen Live-Abenden.',
+        heroBtnPrimary: 'KI-Kompatibilitätstest starten',
+        heroBtnSecondary: 'Wie unsere Live-Abende ablaufen',
+        heroNote1: 'Kontaktaustausch nur bei gegenseitigem Einverständnis',
+        stat1: 'Europäische Städte mit Live-Treffen',
+        stat2: 'Paare fanden sich beim Abend in Hamburg',
+        stat3: 'Alter unserer Gäste bei Live-Abenden',
+        stat4: 'Voller Datenschutz nach DSGVO',
+        aiBadge: 'Kostenloser Online-Service des Clubs',
+        aiTitle: 'KI-Kompatibilitätsporträt nach Geburtsdatum & Werten',
+        aiSubtitle: 'Entdecken Sie Ihre Lebenszahl, Ihr Beziehungsprofil und passende Beispiel-Profile aus unserer europäischen Kartei.',
+        labelName: 'Ihr Vorname',
+        labelBirth: 'Geburtsdatum',
+        labelCity: 'Ihre Stadt / Region',
+        labelLooking: 'Was suchen Sie?',
+        optSerious: 'Feste Partnerschaft & Familie',
+        optSoul: 'Herzliche Nähe & Seelenverwandtschaft',
+        optTravel: 'Begleitung für Reisen & Kultur',
+        labelValues: 'Was ist Ihnen in einer Beziehung besonders wichtig? (bis zu 3 Punkte)',
+        valHome: 'Familiäre Wärme & Geborgenheit',
+        valCulture: 'Kultur, Theater & Musik',
+        valTravel: 'Reisen durch Europa',
+        valTrust: 'Verlässlichkeit & Ruhe',
+        valNature: 'Spaziergänge in der Natur',
+        valHumor: 'Leichtigkeit & Humor',
+        aiPrivacyHint: 'Sofortige Berechnung. Ihre Angaben werden nicht öffentlich angezeigt.',
+        aiSubmitBtn: 'Profil berechnen & Vorschläge zeigen',
+        aiCalculating: 'KI von Swacha analysiert Geburtsdatum, Werte und europäische Kartei...',
+        resBadge: 'Persönliche Analyse von Swacha',
+        resAdviceTitle: 'Empfehlung zur Partnerschaft:',
+        resMatchesTitle: 'Passende Mitglieder aus der Kartei',
+        resVerified: 'Persönlich geprüft',
+        lifePathLabel: 'Lebenszahl',
+        archetypePrefix: 'Ihr Beziehungs-Archetyp',
+        compatLabel: 'Harmonie',
+        photoHint: 'Foto wird nach gegenseitiger Zustimmung freigegeben',
+        wantMeetBtn: 'Kennenlernen anfragen',
+        eveningBadge: 'Express-Dating-Abend • Live-Format',
+        eveningTitle: 'So erleben Sie unsere Kennenlern-Abende in Europa',
+        eveningDesc: 'Kein steifes Speed-Dating, sondern ein herzliches Fest für Gäste von 20 bis 75 Jahren. Swacha führt behutsam durch den Abend, nimmt jede Scheu und sorgt für echte Begegnungen.',
+        caseBadge: 'Rückblick • Hamburg',
+        caseTitle: '32 Gäste und 6 neue Paare an einem Abend',
+        caseDesc: 'Live-Violine, ein Glas Champagner zur Begrüßung, unterhaltsame Kennenlernspiele, eine hausgemachte Kaffeetafel und Tanz bis in den späten Abend.',
+        caseSiteBtn: 'Platz anfragen',
+        modalNextEvening: 'Nächster Kennenlern-Abend in Europa',
+        feat1Title: 'Begrüßungsglas gratis',
+        feat1Desc: 'Zum Empfang erwartet jeden Gast ein Glas Champagner, Saft oder Wasser gratis — für einen herzlichen Start in den Abend.',
+        feat2Title: 'Live-Violine & Disco',
+        feat2Desc: 'Romantische Geigenklänge wechseln sich mit beschwingter Tanzmusik ab — die beste Gelegenheit für ein erstes Gespräch.',
+        feat3Title: 'Party-Spiele & Interaktion',
+        feat3Desc: 'Charmante Gruppenspiele und unsere Sympathie-Post helfen, ganz natürlich und ohne Hemmungen ins Gespräch zu kommen.',
+        feat4Title: 'Hausgemachte Kaffeetafel',
+        feat4Desc: 'Duftender Tee, Kaffee, frisches Obst und Gebäck schaffen eine familiäre, entspannte Atmosphäre.',
+        feat5Title: 'Alter 20–75 Jahre',
+        feat5Desc: 'Liebe kennt kein Alter: Wir achten auf harmonische Altersgruppen und ein ausgewogenes Verhältnis von Damen und Herren.',
+        feat6Title: 'Fotozone & Diskretion',
+        feat6Desc: 'Stilvolle Fotozone zur Erinnerung; Kontaktdaten werden nach dem Abend diskret über Swacha bei beidseitigem Wunsch vermittelt.',
+        eventsEyebrow: 'Europa-Tournee des Clubs',
+        eventsTitle: 'Live-Treffen & Salonabende in Europa',
+        eventsSubtitle: 'Reservieren Sie Ihren Platz frühzeitig, damit wir auf jedem Abend eine ausgewogene Teilnehmerzahl sichern können.',
+        filterAll: 'Alle Städte',
+        filterGermany: 'Deutschland',
+        filterCentral: 'Zentraleuropa',
+        filterSouth: 'Südeuropa',
+        seatsLeftLabel: 'Freie Plätze',
+        bookSeatBtn: 'Platz reservieren',
+        cardsEyebrow: 'Mitgliedschaften',
+        cardsTitle: 'Clubkarten für Ihre Partnersuche in Europa',
+        cardsSubtitle: 'Wählen Sie Ihr passendes Modell: von der kostenlosen Aufnahme in die Kartei bis zur persönlichen VIP-Begleitung.',
+        tier1Tag: 'Basis-Start',
+        tier1Name: 'Basis-Profil',
+        tier1Period: '/ Aufnahme in die Kartei',
+        tier1Desc: 'Ideal, um unseren Club kennenzulernen und Ihr Profil vertraulich in unsere Kartei aufzunehmen.',
+        tier1F1: 'Vertrauliche Aufnahme in die geschlossene Clubkartei',
+        tier1F2: 'Basis-KI-Porträt nach Geburtsdatum & Werten',
+        tier1F3: 'Einladungen zu Live-Treffen über unseren Telegram-Kanal',
+        tier1Btn: 'Kostenlos Profil hinterlegen',
+        tier2Badge: 'Beliebteste Wahl',
+        tier2Tag: 'Aktive Vermittlung',
+        tier2Name: 'Club-Abonnement',
+        tier2Period: '/ Monat',
+        tier2Desc: 'Regelmäßige persönliche Partnervorschläge von Swacha und Zugang zur geschlossenen Community.',
+        tier2F1: '1–2 geprüfte Partnervorschläge pro Woche mit Kurzprofil',
+        tier2F2: 'Kontaktaustausch bei beidseitigem Einverständnis',
+        tier2F3: 'Zugang zum geschlossenen Club-Chat & Online-Abenden',
+        tier2F4: '15 % Vorteil auf Tickets für alle Live-Events in Europa',
+        tier2Btn: 'Clubkarte beantragen',
+        tier3Tag: 'Persönliche Begleitung',
+        tier3Name: 'Persönliche Begleitung',
+        tier3Period: '/ Monat',
+        tier3Desc: 'Individuelle Beratung durch Swacha, Video-Kennenlernen und europaweite Prioritätssuche.',
+        tier3F1: 'Persönliches Erstgespräch mit Swacha (45 Min.)',
+        tier3F2: 'Tiefgehende KI- & Numerologie-Analyse für jedes Paar',
+        tier3F3: 'Bevorzugte Platzreservierung bei exklusiven Salonabenden',
+        tier3F4: 'Persönliches Feedback nach jedem Treffen',
+        tier3Btn: 'VIP-Kennenlernen anfragen',
+        footerTagline: 'Internationaler Kennenlern-Club für die Seele • Europa',
+        footerCopy: '© 2026 Club «Swacha». Vertraulichkeit und Datenschutz (DSGVO / GDPR).',
+        modalDefaultTitle: 'Club «Swacha» beitreten',
+        modalSubtitle: 'Hinterlassen Sie Ihre Kontaktdaten — Swacha meldet sich persönlich per Telegram oder WhatsApp bei Ihnen.',
+        mLabelName: 'Ihr Vorname *',
+        mLabelAge: 'Alter *',
+        mLabelCity: 'Stadt in Europa *',
+        mLabelContact: 'Telegram oder WhatsApp *',
+        mLabelAbout: 'Kurz über Sie & Ihre Wünsche',
+        mGdpr: 'Ich stimme der vertraulichen Verarbeitung meines Profils durch den Club «Swacha» (DSGVO) zu.',
+        mSubmit: 'Anfrage an Swacha senden',
+        mSuccessTitle: 'Ihre Anfrage ist eingegangen!',
+        mBackBtn: 'Zurück zur Website'
+      },
+      en: {
+        brandSubtitle: 'International Club',
+        emblemSub1: 'International Matchmaking Club',
+        emblemSub2: 'for the Soul',
+        navAi: 'AI Compatibility',
+        navFormat: 'Evening Atmosphere',
+        navEvents: 'European Events',
+        navCards: 'Club Cards',
+        ctaJoin: 'Join the Club',
+        heroBadge: 'European Matchmaking Club • Liebe in jedem Alter • Love at any age',
+        heroTitle: 'Soulful Matchmaking Guided by Values, Intuition & AI',
+        heroDesc: 'Bringing hearts together across Germany, Austria, the Czech Republic, Spain, and all of Europe. No endless swiping — personal curation by Svaha, AI birth-date compatibility, and warm live evenings with music and dancing.',
+        heroBtnPrimary: 'Take the AI Compatibility Test',
+        heroBtnSecondary: 'Discover Our Live Evenings',
+        heroNote1: 'Contacts shared strictly upon mutual consent',
+        stat1: 'European cities hosting live gatherings',
+        stat2: 'Couples matched at our Hamburg evening',
+        stat3: 'Age range of guests at our gatherings',
+        stat4: 'Strict GDPR privacy protection',
+        aiBadge: 'Complimentary Club Online Tool',
+        aiTitle: 'AI Compatibility Portrait by Birth Date & Core Values',
+        aiSubtitle: 'Discover your life-path number, relationship archetype, and explore compatible member profiles from our European registry.',
+        labelName: 'Your First Name',
+        labelBirth: 'Date of Birth',
+        labelCity: 'Your City / Region',
+        labelLooking: 'Relationship Goal',
+        optSerious: 'Serious Relationship & Family',
+        optSoul: 'Soulful Connection & Closeness',
+        optTravel: 'Companion for Travel & Culture',
+        labelValues: 'What matters most to you in a partner? (select up to 3)',
+        valHome: 'Warmth & Family Coziness',
+        valCulture: 'Culture, Theatre & Music',
+        valTravel: 'Travelling Across Europe',
+        valTrust: 'Reliability & Calmness',
+        valNature: 'Walks in Nature',
+        valHumor: 'Lightness & Sense of Humor',
+        aiPrivacyHint: 'Instant calculation. Your personal profile is never displayed publicly.',
+        aiSubmitBtn: 'Calculate Profile & Find Matches',
+        aiCalculating: 'Svaha AI is analyzing birth date, values, and European registry...',
+        resBadge: 'Personal Analysis by Svaha',
+        resAdviceTitle: 'Matchmaking Recommendation:',
+        resMatchesTitle: 'Compatible Members in Our Registry',
+        resVerified: 'Personally verified',
+        lifePathLabel: 'Life Path',
+        archetypePrefix: 'your relationship archetype',
+        compatLabel: 'Compatibility',
+        photoHint: 'Photos unlocked upon mutual consent',
+        wantMeetBtn: 'Request Introduction',
+        eveningBadge: 'Express-Dating-Abend • Live Format',
+        eveningTitle: 'How Our European Matchmaking Evenings Unfold',
+        eveningDesc: 'Never a stiff speed-dating conveyor belt — it is a warm celebration welcoming guests aged 20 to 75. Svaha gently hosts the evening, dissolves shyness, and creates an atmosphere of ease and trust.',
+        caseBadge: 'Case Study • Hamburg',
+        caseTitle: '32 Guests & 6 New Couples in One Evening',
+        caseDesc: 'Live violin performance, a complimentary welcome glass of bubbly, lighthearted icebreaker games, a homemade sweet tea table, and dancing into the night.',
+        caseSiteBtn: 'Reserve a Spot',
+        modalNextEvening: 'Upcoming European Matchmaking Evening',
+        feat1Title: 'Complimentary Welcome Glass',
+        feat1Desc: 'Every guest is greeted with a complimentary glass of bubbly, juice, or water to begin the evening with a warm toast.',
+        feat2Title: 'Live Violin & Disco',
+        feat2Desc: 'Romantic live violin melodies flow into lively DJ dance sets — the easiest way to invite someone you like onto the floor.',
+        feat3Title: 'Party-Spiele & Icebreakers',
+        feat3Desc: 'Playful group games and our discreet sympathy mail hosted by Svaha spark natural conversations without awkward pauses.',
+        feat4Title: 'Homemade Sweet Table',
+        feat4Desc: 'Fragrant tea, coffee, fresh fruit, and homemade pastries create a cozy, welcoming setting for genuine conversation.',
+        feat5Title: 'Ages 20 to 75 Welcomed',
+        feat5Desc: 'Love shines at every age: we curate balanced age groups and maintain an even ratio of ladies and gentlemen.',
+        feat6Title: 'Photo Zone & Discretion',
+        feat6Desc: 'A stylish themed photo corner for memories, while contact details are shared afterward by Svaha only upon mutual interest.',
+        eventsEyebrow: 'European Club Tour',
+        eventsTitle: 'Live Gatherings & Salon Evenings Across Europe',
+        eventsSubtitle: 'Reserve your seat in advance so we can maintain a balanced ratio of ladies and gentlemen at every event.',
+        filterAll: 'All Cities',
+        filterGermany: 'Germany',
+        filterCentral: 'Central Europe',
+        filterSouth: 'Southern Europe',
+        seatsLeftLabel: 'Spots left',
+        bookSeatBtn: 'Reserve a Seat',
+        cardsEyebrow: 'Membership Tiers',
+        cardsTitle: 'Club Cards for Finding Your Partner in Europe',
+        cardsSubtitle: 'Choose the pace that suits you best — from free registry inclusion to personal VIP matchmaking.',
+        tier1Tag: 'Essential Start',
+        tier1Name: 'Basic Profile',
+        tier1Period: '/ database registry',
+        tier1Desc: 'Ideal if you want to experience our club atmosphere and place your confidential profile in our registry.',
+        tier1F1: 'Confidential inclusion in our private member registry',
+        tier1F2: 'Foundational AI compatibility portrait by birth date',
+        tier1F3: 'Event announcements in our private Telegram channel',
+        tier1Btn: 'Submit Profile for Free',
+        tier2Badge: 'Most Popular',
+        tier2Tag: 'Active Matchmaking',
+        tier2Name: 'Club Membership',
+        tier2Period: '/ month',
+        tier2Desc: 'Regular curated introductions by Svaha and access to our private European community.',
+        tier2F1: '1–2 personally curated candidate profiles per week',
+        tier2F2: 'Direct contact exchange upon mutual consent',
+        tier2F3: 'Access to private club chat & online salon evenings',
+        tier2F4: '15% member privilege on all European live event tickets',
+        tier2Btn: 'Apply for Club Card',
+        tier3Tag: 'Personal Concierge',
+        tier3Name: 'Personal Matchmaking',
+        tier3Period: '/ month',
+        tier3Desc: 'One-on-one guidance with Svaha, video introductions, and priority search across Europe.',
+        tier3F1: 'Personal 45-minute consultation interview with Svaha',
+        tier3F2: 'In-depth AI & numerology compatibility report per match',
+        tier3F3: 'Priority seating for intimate European salon evenings',
+        tier3F4: 'Personal feedback & guidance after every date',
+        tier3Btn: 'Book VIP Consultation',
+        footerTagline: 'International Matchmaking Club for the Soul • Europe',
+        footerCopy: '© 2026 Club «Swacha». Confidentiality & Data Protection (GDPR / DSGVO).',
+        modalDefaultTitle: 'Join Club «Swacha»',
+        modalSubtitle: 'Leave your contact details — Svaha will reach out personally via Telegram or WhatsApp.',
+        mLabelName: 'Your First Name *',
+        mLabelAge: 'Age *',
+        mLabelCity: 'City in Europe *',
+        mLabelContact: 'Telegram or WhatsApp *',
+        mLabelAbout: 'A few words about yourself & your wishes',
+        mGdpr: 'I consent to the confidential processing of my profile by Club «Swacha» (GDPR / DSGVO). Contacts are never shared without consent.',
+        mSubmit: 'Send Request to Svaha',
+        mSuccessTitle: 'Your Request Has Been Received!',
+        mBackBtn: 'Return to Website'
+      }
+    };
+
+    function getT(key) {
+      return (i18n[currentLang] && i18n[currentLang][key]) || i18n.ru[key] || key;
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      ['ru', 'de', 'en'].forEach(code => {
+        const btn = document.getElementById(`lang-${code}`);
+        if (!btn) return;
+        btn.className = code === lang
+          ? 'px-2.5 py-1 text-xs font-bold rounded-full bg-brand-gold text-brand-plum transition-all'
+          : 'px-2.5 py-1 text-xs font-bold rounded-full text-[#F6ECE2] hover:text-brand-gold transition-all';
+      });
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[lang] && i18n[lang][key]) {
+          el.textContent = i18n[lang][key];
+        }
+      });
+
+      document.querySelectorAll('.value-tag').forEach(btn => {
+        const key = btn.getAttribute('data-val-key');
+        if (key && i18n[lang][key]) {
+          btn.textContent = i18n[lang][key];
+        }
+      });
+
+      const sub1 = document.getElementById('emblem-sub-1');
+      const sub2 = document.getElementById('emblem-sub-2');
+      if (sub1 && sub2) {
+        sub1.textContent = getT('emblemSub1');
+        sub2.textContent = getT('emblemSub2');
+      }
+
+      renderEvents(activeEventRegion);
+      if (!document.getElementById('ai-result-panel').classList.contains('hidden')) {
+        runCompatibilityCalculation(false);
+      }
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+
+    function toggleValueTag(btn) {
+      const activeCount = document.querySelectorAll('.value-tag.active').length;
+      if (btn.classList.contains('active')) {
+        btn.classList.remove('active', 'bg-brand-primary', 'text-white', 'border-brand-primary');
+        btn.classList.add('bg-brand-secondary', 'text-brand-ink', 'border-brand-gold/60');
+      } else if (activeCount < 3) {
+        btn.classList.add('active', 'bg-brand-primary', 'text-white', 'border-brand-primary');
+        btn.classList.remove('bg-brand-secondary', 'text-brand-ink', 'border-brand-gold/60');
+      }
+    }
+
+    // Нумерологические архетипы (1–9) на 3 языках
+    const numerologyData = {
+      1: {
+        ru: { title: 'Вдохновляющий лидер', desc: 'Вы цените искренность, ясность намерений и взаимное уважение личных границ.', advice: 'Вам гармонично подойдёт мягкий, тактичный партнёр (числа 2, 6 или 9), создающий дома атмосферу тепла и принятия.' },
+        de: { title: 'Inspirierende Persönlichkeit', desc: 'Sie schätzen Aufrichtigkeit, klare Absichten und gegenseitigen Respekt.', advice: 'Ideal harmonieren Sie mit einem einfühlsamen Partner (Zahlen 2, 6 oder 9), der Wärme und Ruhe schenkt.' },
+        en: { title: 'Inspiring Leader', desc: 'You value sincerity, clear intentions, and mutual respect for personal boundaries.', advice: 'You harmonize best with a warm, tactful partner (numbers 2, 6, or 9) who brings calm and devotion.' }
+      },
+      2: {
+        ru: { title: 'Хранитель душевной гармонии', desc: 'Для вас важны нежность, диалог, совместные прогулки и ощущение надёжного плеча рядом.', advice: 'Лучшая совместимость складывается с заботливыми и ответственными людьми (числа 1, 4, 8).' },
+        de: { title: 'Bewahrer der Seelenharmonie', desc: 'Zärtlichkeit, tiefgründige Gespräche und Verlässlichkeit stehen für Sie an erster Stelle.', advice: 'Beste Harmonie entsteht mit verantwortungsbewussten, herzlichen Menschen (Zahlen 1, 4, 8).' },
+        en: { title: 'Keeper of Soulful Harmony', desc: 'Tenderness, meaningful dialogue, and a steady, reliable presence mean the world to you.', advice: 'Your strongest bond forms with caring, grounded partners (numbers 1, 4, or 8).' }
+      },
+      3: {
+        ru: { title: 'Солнечный романтик', desc: 'Вы умеете наполнять отношения радостью, юмором, культурными событиями и лёгкостью.', advice: 'Вам подойдёт партнёр, разделяющий любовь к искусству и путешествиям (числа 3, 5, 6).' },
+        de: { title: 'Sonniger Romantiker', desc: 'Sie bereichern eine Partnerschaft mit Lebensfreude, Humor, Kultur und Leichtigkeit.', advice: 'Besonders gut passt ein Partner mit Freude an Kunst und Reisen (Zahlen 3, 5, 6).' },
+        en: { title: 'Radiant Romantic', desc: 'You fill relationships with warmth, humor, cultural curiosity, and effortless joy.', advice: 'You thrive alongside a partner who shares your love for art and travel (numbers 3, 5, or 6).' }
+      },
+      4: {
+        ru: { title: 'Надёжная опора семьи', desc: 'Вы строите отношения всерьёз и надолго, цените верность, порядок и общие семейные традиции.', advice: 'Идеальный союз возможен с чутким и душевным человеком (числа 2, 6, 7).' },
+        de: { title: 'Verlässliches Fundament', desc: 'Sie bauen auf Beständigkeit, Treue, Vertrauen und gemeinsame Familientraditionen.', advice: 'Eine wunderbare Verbindung entsteht mit einem feinfühligen Menschen (Zahlen 2, 6, 7).' },
+        en: { title: 'Steadfast Pillar of Family', desc: 'You build lasting relationships rooted in loyalty, trust, and shared family traditions.', advice: 'An ideal union blossoms with a perceptive, warmhearted partner (numbers 2, 6, or 7).' }
+      },
+      5: {
+        ru: { title: 'Искатель живых впечатлений', desc: 'Вам важны свобода дыхания в паре, совместные поездки по Европе и открытость новому.', advice: 'Гармоничный тандем сложится с лёгким на подъём и мудрым партнёром (числа 3, 5, 9).' },
+        de: { title: 'Entdecker voller Lebenslust', desc: 'Gemeinsame Reisen durch Europa, Offenheit und lebendiger Austausch halten Ihre Liebe frisch.', advice: 'Ein harmonisches Duo entsteht mit einem weltoffenen, klugen Partner (Zahlen 3, 5, 9).' },
+        en: { title: 'Seeker of Vibrant Experiences', desc: 'Shared European adventures, openness, and lively conversation keep love thriving for you.', advice: 'You pair effortlessly with an open-minded, wise partner (numbers 3, 5, or 9).' }
+      },
+      6: {
+        ru: { title: 'Сердце домашнего очага', desc: 'Вы создаёте вокруг себя уют, красоту и безусловную поддержку для любимого человека.', advice: 'Высокая совместимость с ценителями семейных ценностей и глубины (числа 2, 4, 9).' },
+        de: { title: 'Herz des gemeinsamen Zuhauses', desc: 'Sie schenken Geborgenheit, Ästhetik und herzliche Fürsorge in der Partnerschaft.', advice: 'Hohe Harmonie mit Menschen, die Familie und Tiefe schätzen (Zahlen 2, 4, 9).' },
+        en: { title: 'Heart of the Home', desc: 'You naturally create beauty, warmth, and unconditional support for the person you love.', advice: 'High compatibility with partners who cherish family depth and devotion (numbers 2, 4, or 9).' }
+      },
+      7: {
+        ru: { title: 'Глубокий созерцатель', desc: 'Вам необходим интеллектуальный и духовный резонанс, тихие беседы и уважение к внутреннему миру.', advice: 'Лучше всего вас поймёт тактичный, интеллигентный партнёр (числа 2, 4, 7).' },
+        de: { title: 'Tiefgründiger Feingeist', desc: 'Geistige Verbundenheit, ruhige Gespräche und Respekt vor Ihrer Innenwelt sind entscheidend.', advice: 'Am besten versteht Sie ein kultivierter, einfühlsamer Partner (Zahlen 2, 4, 7).' },
+        en: { title: 'Thoughtful Soul', desc: 'Intellectual and spiritual resonance, quiet talks, and mutual depth matter most to you.', advice: 'You connect deeply with a cultured, perceptive partner (numbers 2, 4, or 7).' }
+      },
+      8: {
+        ru: { title: 'Зрелый созидатель', desc: 'Вы умеете брать ответственность, цените достойный уровень жизни и партнёрство равных.', advice: 'Сильный и тёплый союз сложится с душевным, преданным человеком (числа 2, 6, 8).' },
+        de: { title: 'Reifer Gestalter', desc: 'Sie übernehmen Verantwortung und schätzen eine Partnerschaft auf Augenhöhe.', advice: 'Eine starke, herzliche Verbindung entsteht mit einem treuen Menschen (Zahlen 2, 6, 8).' },
+        en: { title: 'Mature Builder', desc: 'You value mutual respect, stability, and an equal partnership built on shared goals.', advice: 'A strong, affectionate bond forms with a warm and devoted partner (numbers 2, 6, or 8).' }
+      },
+      9: {
+        ru: { title: 'Мудрый гуманист', desc: 'В любви вы щедры, великодушны и умеете принимать человека таким, какой он есть.', advice: 'Прекрасная совместимость с творческими и искренними людьми (числа 1, 3, 6).' },
+        de: { title: 'Weiser Herzensmensch', desc: 'In der Liebe sind Sie großzügig, verständnisvoll und voller echter Herzenswärme.', advice: 'Wunderbare Harmonie mit kreativen, aufrichtigen Menschen (Zahlen 1, 3, 6).' },
+        en: { title: 'Wise Humanitarian', desc: 'In love you are generous, empathetic, and appreciate a partner for who they truly are.', advice: 'Wonderful harmony with creative, genuine individuals (numbers 1, 3, or 6).' }
+      }
+    };
+
+    // База примеров кандидатов на 3 языках
+    const sampleCandidates = [
+      {
+        cityKey: 'Hamburg',
+        score: 94,
+        ru: { name: 'Александр, 54', city: 'Гамбург', bio: 'Инженер-архитектор. Люблю классическую музыку, прогулки вдоль Эльбы и уютные семейные ужины. Ищу добрую, искреннюю женщину.' },
+        de: { name: 'Alexander, 54', city: 'Hamburg', bio: 'Bauingenieur. Ich liebe klassische Musik, Spaziergänge an der Elbe und gemütliche Abende. Suche eine herzliche Partnerin.' },
+        en: { name: 'Alexander, 54', city: 'Hamburg', bio: 'Civil engineer. I enjoy classical music, walks along the Elbe, and cozy dinners. Looking for a kind, sincere woman.' }
+      },
+      {
+        cityKey: 'Berlin',
+        score: 91,
+        ru: { name: 'Ирина, 49', city: 'Берлин', bio: 'Преподаватель фортепиано. Обожаю театр, выставки, путешествия на выходных и живое общение без спешки.' },
+        de: { name: 'Irina, 49', city: 'Berlin', bio: 'Klavierlehrerin. Ich begeistere mich für Theater, Ausstellungen, Wochenendausflüge und tiefgründige Gespräche.' },
+        en: { name: 'Irina, 49', city: 'Berlin', bio: 'Piano teacher. I love theatre, art exhibitions, weekend getaways, and unhurried, genuine conversation.' }
+      },
+      {
+        cityKey: 'Munich',
+        score: 92,
+        ru: { name: 'Штефан, 57', city: 'Мюнхен', bio: 'Предприниматель в сфере экологии. Люблю Альпы, пешие прогулки, хорошее вино и душевную близость.' },
+        de: { name: 'Stefan, 57', city: 'München', bio: 'Unternehmer im Bereich Nachhaltigkeit. Ich liebe die Alpen, Wanderungen, guten Wein und echte Herzenswärme.' },
+        en: { name: 'Stefan, 57', city: 'Munich', bio: 'Sustainability entrepreneur. I love the Alps, scenic hikes, fine wine, and genuine emotional closeness.' }
+      },
+      {
+        cityKey: 'Vienna',
+        score: 90,
+        ru: { name: 'Виктория, 44', city: 'Вена', bio: 'Дизайнер интерьеров. Обожаю венские кофейни, прогулки в парках, оперу и открытых, добрых людей.' },
+        de: { name: 'Viktoria, 44', city: 'Wien', bio: 'Innenarchitektin. Ich liebe Wiener Kaffeehäuser, Spaziergänge im Park, Oper und herzliche Menschen.' },
+        en: { name: 'Victoria, 44', city: 'Vienna', bio: 'Interior designer. I love Viennese coffee houses, park strolls, opera, and warmhearted people.' }
+      },
+      {
+        cityKey: 'Prague',
+        score: 89,
+        ru: { name: 'Марек, 51', city: 'Прага', bio: 'Врач-реабилитолог. Ценю семейный уют, путешествия на автомобиле, книги и спокойные вечера вдвоём.' },
+        de: { name: 'Marek, 51', city: 'Prag', bio: 'Rehabilitationsarzt. Ich schätze familiäre Geborgenheit, Autoreisen, Bücher und ruhige Abende zu zweit.' },
+        en: { name: 'Marek, 51', city: 'Prague', bio: 'Rehabilitation physician. I value family warmth, road trips, good books, and peaceful evenings together.' }
+      },
+      {
+        cityKey: 'Alicante',
+        score: 93,
+        ru: { name: 'Елена, 55', city: 'Аликанте', bio: 'Переехала к морю. Люблю утренний кофе на террасе, танцы, йогу и тёплое душевное общение.' },
+        de: { name: 'Elena, 55', city: 'Alicante', bio: 'Ans Meer gezogen. Ich liebe Morgenkaffee auf der Terrasse, Tanzen, Yoga und herzliche Gespräche.' },
+        en: { name: 'Elena, 55', city: 'Alicante', bio: 'Living by the sea. I love morning coffee on the terrace, dancing, yoga, and heartfelt conversation.' }
+      }
+    ];
+
+    function reduceToSingleDigit(dateStr) {
+      const digits = dateStr.replace(/\D/g, '');
+      if (!digits) return 7;
+      let sum = digits.split('').reduce((acc, d) => acc + parseInt(d, 10), 0);
+      while (sum > 9) {
+        sum = String(sum).split('').reduce((acc, d) => acc + parseInt(d, 10), 0);
+      }
+      return sum || 7;
+    }
+
+    function calculateCompatibility(event) {
+      event.preventDefault();
+      const loadingBar = document.getElementById('ai-loading-bar');
+      const progressFill = document.getElementById('ai-progress-fill');
+      const progressPercent = document.getElementById('ai-progress-percent');
+      const resultPanel = document.getElementById('ai-result-panel');
+
+      resultPanel.classList.add('hidden');
+      loadingBar.classList.remove('hidden');
+      progressFill.style.width = '0%';
+      progressPercent.textContent = '0%';
+
+      let pct = 0;
+      const timer = setInterval(() => {
+        pct += Math.floor(Math.random() * 18) + 12;
+        if (pct >= 100) {
+          pct = 100;
+          clearInterval(timer);
+          progressFill.style.width = '100%';
+          progressPercent.textContent = '100%';
+          setTimeout(() => {
+            loadingBar.classList.add('hidden');
+            runCompatibilityCalculation(true);
+          }, 220);
+        } else {
+          progressFill.style.width = `${pct}%`;
+          progressPercent.textContent = `${pct}%`;
+        }
+      }, 90);
+    }
+
+    function runCompatibilityCalculation(shouldScroll) {
+      const nameInput = document.getElementById('user-name').value.trim();
+      const birthDate = document.getElementById('user-birthdate').value;
+      const selectedCity = document.getElementById('user-city').value;
+
+      const lifePath = reduceToSingleDigit(birthDate);
+      const profile = (numerologyData[lifePath] && numerologyData[lifePath][currentLang]) || numerologyData[7].ru;
+
+      document.getElementById('life-path-badge').textContent = `${getT('lifePathLabel')}: ${lifePath}`;
+      document.getElementById('result-archetype').textContent = nameInput
+        ? `${nameInput} — ${profile.title}`
+        : `${profile.title}`;
+      document.getElementById('result-description').textContent = profile.desc;
+      document.getElementById('result-advice').textContent = profile.advice;
+
+      const prioritized = [
+        ...sampleCandidates.filter(c => c.cityKey === selectedCity),
+        ...sampleCandidates.filter(c => c.cityKey !== selectedCity)
+      ].slice(0, 3);
+
+      const listContainer = document.getElementById('matched-candidates-list');
+      listContainer.innerHTML = prioritized.map((cand, idx) => {
+        const info = cand[currentLang] || cand.ru;
+        const adjustedScore = Math.min(98, cand.score + (cand.cityKey === selectedCity ? 3 : 0) - idx);
+        return `
+          <div class="card-luxe-hover bg-brand-secondary/75 rounded-2xl p-5 border border-brand-gold/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1.5">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="font-serif text-xl font-bold text-brand-primary">${info.name}</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-brand-bg border border-brand-gold/50 text-xs font-medium text-brand-ink">${info.city}</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-brand-primary text-white text-xs font-semibold">${getT('compatLabel')}: ${adjustedScore}%</span>
+              </div>
+              <p class="text-xs sm:text-sm text-brand-ink/85 leading-relaxed">${info.bio}</p>
+              <div class="text-[11px] text-brand-muted italic">${getT('photoHint')}</div>
+            </div>
+            <button type="button" onclick="openModal('match', '${info.name} (${info.city})')" class="btn-shimmer shrink-0 px-5 py-2.5 rounded-full bg-brand-primary text-white text-xs font-semibold hover:bg-[#88163E] transition-all">
+              ${getT('wantMeetBtn')}
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      const resultPanel = document.getElementById('ai-result-panel');
+      resultPanel.classList.remove('hidden');
+      if (shouldScroll) {
+        resultPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    // Афиша встреч в 6 городах Европы
+    let activeEventRegion = 'all';
+    const europeEvents = [
+      {
+        region: 'germany',
+        seats: 6,
+        ru: { city: 'Гамбург', country: 'Германия', date: '28 ноября • 18:30', title: 'Express-Dating-Abend: Осенний бал знакомств', desc: 'Живая скрипка, бокал шампанского в подарок, игры на знакомство и дискотека. Возраст 25–65 лет.' },
+        de: { city: 'Hamburg', country: 'Deutschland', date: '28. November • 18:30', title: 'Express-Dating-Abend: Herbstlicher Kennenlern-Abend', desc: 'Live-Violine, ein Glas Champagner gratis, Kennenlernspiele und Disco. Alter 25–65 Jahre.' },
+        en: { city: 'Hamburg', country: 'Germany', date: 'November 28 • 18:30', title: 'Express-Dating-Abend: Autumn Matchmaking Evening', desc: 'Live violin, complimentary welcome bubbly, icebreaker games, and disco. Ages 25–65.' }
+      },
+      {
+        region: 'germany',
+        seats: 8,
+        ru: { city: 'Берлин', country: 'Германия', date: '6 декабря • 18:00', title: 'Зимний салон «Любовь в любом возрасте»', desc: 'Камерный вечер в центре Берлина: живая музыка, чайный стол, общение в парах и танцы.' },
+        de: { city: 'Berlin', country: 'Deutschland', date: '6. Dezember • 18:00', title: 'Wintersalon «Liebe in jedem Alter»', desc: 'Stimmungsvoller Abend in Berlin-Mitte: Live-Musik, Kaffeetafel, Gespräche und Tanz.' },
+        en: { city: 'Berlin', country: 'Germany', date: 'December 6 • 18:00', title: 'Winter Salon “Love at Any Age”', desc: 'Intimate evening in central Berlin: live music, sweet tea table, guided conversations, and dancing.' }
+      },
+      {
+        region: 'germany',
+        seats: 5,
+        ru: { city: 'Мюнхен', country: 'Германия', date: '13 декабря • 18:30', title: 'Предрождественский вечер знакомств', desc: 'Праздничная фотозона, игристое, викторины от Свахи и тёплая компания.' },
+        de: { city: 'München', country: 'Deutschland', date: '13. Dezember • 18:30', title: 'Vorweihnachtlicher Kennenlern-Abend', desc: 'Festliche Fotozone, Sekt zur Begrüßung, Spiele mit Swacha und herzliche Gesellschaft.' },
+        en: { city: 'Munich', country: 'Germany', date: 'December 13 • 18:30', title: 'Pre-Christmas Matchmaking Evening', desc: 'Festive photo zone, welcome bubbly, games hosted by Svaha, and warm company.' }
+      },
+      {
+        region: 'central',
+        seats: 7,
+        ru: { city: 'Вена', country: 'Австрия', date: '20 декабря • 18:00', title: 'Венский вечер при свечах и музыке', desc: 'Элегантное знакомство за чашкой венского кофе, живая скрипка и вальс.' },
+        de: { city: 'Wien', country: 'Österreich', date: '20. Dezember • 18:00', title: 'Wiener Abend bei Kerzenschein & Musik', desc: 'Elegantes Kennenlernen bei Wiener Kaffee, Live-Violine und Tanz.' },
+        en: { city: 'Vienna', country: 'Austria', date: 'December 20 • 18:00', title: 'Viennese Candlelight & Music Evening', desc: 'Elegant gathering over Viennese coffee, live violin, and waltz.' }
+      },
+      {
+        region: 'central',
+        seats: 9,
+        ru: { city: 'Прага', country: 'Чехия', date: '10 января • 18:00', title: 'Новогодняя встреча клуба «Сваха»', desc: 'Тёплый праздник в историческом зале Праги: музыка, интерактив и новые знакомства.' },
+        de: { city: 'Prag', country: 'Tschechien', date: '10. Januar • 18:00', title: 'Neujahrstreffen des Clubs «Swacha»', desc: 'Herzliches Fest im historischen Saal in Prag: Musik, Spiele und neue Begegnungen.' },
+        en: { city: 'Prague', country: 'Czech Republic', date: 'January 10 • 18:00', title: 'New Year Club “Svaha” Gathering', desc: 'Warm celebration in a historic Prague hall: music, interactive games, and new introductions.' }
+      },
+      {
+        region: 'south',
+        seats: 6,
+        ru: { city: 'Аликанте', country: 'Испания', date: '24 января • 19:00', title: 'Средиземноморский вечер у моря', desc: 'Уютная встреча на побережье Коста-Бланка: приветственный напиток, музыка и лёгкое общение.' },
+        de: { city: 'Alicante', country: 'Spanien', date: '24. Januar • 19:00', title: 'Mediterraner Abend am Meer', desc: 'Herzliches Treffen an der Costa Blanca: Begrüßungsdrink, Musik und entspannte Gespräche.' },
+        en: { city: 'Alicante', country: 'Spain', date: 'January 24 • 19:00', title: 'Mediterranean Evening by the Sea', desc: 'Cozy gathering on the Costa Blanca: welcome drink, music, and relaxed conversation.' }
+      }
+    ];
+
+    function renderEvents(region) {
+      activeEventRegion = region;
+      const grid = document.getElementById('events-grid');
+      if (!grid) return;
+      const filtered = region === 'all' ? europeEvents : europeEvents.filter(ev => ev.region === region);
+
+      grid.innerHTML = filtered.map((ev, idx) => {
+        const info = ev[currentLang] || ev.ru;
+        const staggerClass = `stagger-${(idx % 6) + 1}`;
+        return `
+          <article class="card-luxe-hover ${staggerClass} bg-brand-bg rounded-3xl p-6 sm:p-7 border border-brand-gold/55 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <span class="px-3 py-1 rounded-full bg-brand-secondary border border-brand-gold/50 text-xs font-bold text-brand-primary">
+                  ${info.city}, ${info.country}
+                </span>
+                <span class="text-xs font-semibold text-brand-muted">
+                  ${getT('seatsLeftLabel')}: <strong class="text-brand-primary">${ev.seats}</strong>
+                </span>
+              </div>
+              <div class="text-xs font-semibold uppercase tracking-wider text-brand-gold mb-1">${info.date}</div>
+              <h3 class="font-serif text-2xl font-bold text-brand-ink leading-snug mb-2">${info.title}</h3>
+              <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">${info.desc}</p>
+            </div>
+            <button type="button" onclick="openModal('event', '${info.city} — ${info.date}')" class="btn-shimmer mt-6 w-full py-3 rounded-full bg-brand-primary text-white text-xs sm:text-sm font-semibold hover:bg-[#88163E] transition-all">
+              ${getT('bookSeatBtn')}
+            </button>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function filterEvents(region, btn) {
+      document.querySelectorAll('.event-filter-btn').forEach(el => {
+        el.className = 'event-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-brand-secondary text-brand-ink border border-brand-gold/40 hover:border-brand-primary transition-all';
+      });
+      btn.className = 'event-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-brand-primary text-white transition-all';
+
+      const grid = document.getElementById('events-grid');
+      grid.style.opacity = '0';
+      setTimeout(() => {
+        renderEvents(region);
+        grid.style.opacity = '1';
+      }, 150);
+    }
+
+    // Управление модальным окном
+    let currentContextLabel = '';
+
+    function openModal(type, label) {
+      currentContextLabel = label;
+      const modal = document.getElementById('booking-modal');
+      const badge = document.getElementById('modal-badge');
+      const title = document.getElementById('modal-title');
+
+      document.getElementById('modal-form-view').classList.remove('hidden');
+      document.getElementById('modal-success-view').classList.add('hidden');
+
+      badge.textContent = type === 'event' ? 'Express-Dating-Abend' : type === 'match' ? 'Match 1:1' : 'Club Svaha';
+      title.textContent = label;
+
+      const calcName = document.getElementById('user-name').value;
+      const calcCity = document.getElementById('user-city').value;
+      if (calcName) document.getElementById('modal-name').value = calcName;
+      if (calcCity) document.getElementById('modal-city').value = calcCity;
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('booking-modal').classList.add('hidden');
+    }
+
+    function submitModalForm(event) {
+      event.preventDefault();
+      const name = document.getElementById('modal-name').value.trim();
+      const contact = document.getElementById('modal-contact').value.trim();
+
+      document.getElementById('modal-form-view').classList.add('hidden');
+      document.getElementById('modal-success-view').classList.remove('hidden');
+
+      const msg = currentLang === 'ru'
+        ? `${name}, ваша заявка («${currentContextLabel}») передана Свахе. Мы напишем вам по контакту ${contact} в ближайшее время.`
+        : currentLang === 'de'
+        ? `${name}, Ihre Anfrage («${currentContextLabel}») wurde an Swacha übermittelt. Wir melden uns in Kürze unter ${contact}.`
+        : `${name}, your request (“${currentContextLabel}”) has been sent to Svaha. We will contact you shortly via ${contact}.`;
+
+      document.getElementById('modal-success-text').textContent = msg;
+    }
+
+    // Прогресс-бар прокрутки страницы в шапке
+    function updateScrollProgress() {
+      const bar = document.getElementById('scroll-progress');
+      if (!bar) return;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+      bar.style.width = `${pct}%`;
+    }
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+    // Плавное появление элементов при прокрутке (IntersectionObserver)
+    function initScrollReveal() {
+      const targets = document.querySelectorAll('.reveal-on-scroll');
+      if (!('IntersectionObserver' in window)) {
+        targets.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+      targets.forEach(el => observer.observe(el));
+    }
+
+    // Золотистые парящие частицы боке на canvas для вечерних секций
+    function initBokehCanvas(canvasId, particleCount) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      let width = 0;
+      let height = 0;
+      let particles = [];
+
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        width = canvas.width = rect.width;
+        height = canvas.height = rect.height;
+      }
+
+      function createParticles() {
+        particles = Array.from({ length: particleCount }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 2.4 + 0.9,
+          vy: -(Math.random() * 0.28 + 0.08),
+          vx: (Math.random() - 0.5) * 0.18,
+          alpha: Math.random() * 0.5 + 0.2,
+          phase: Math.random() * Math.PI * 2,
+          isGold: Math.random() > 0.25
+        }));
+      }
+
+      function drawFrame(time) {
+        ctx.clearRect(0, 0, width, height);
+        for (const p of particles) {
+          if (!prefersReduced) {
+            p.y += p.vy;
+            p.x += p.vx + Math.sin(time * 0.0008 + p.phase) * 0.08;
+            if (p.y < -10) { p.y = height + 10; p.x = Math.random() * width; }
+            if (p.x < -10) p.x = width + 10;
+            if (p.x > width + 10) p.x = -10;
+          }
+          const twinkle = 0.65 + 0.35 * Math.sin(time * 0.002 + p.phase);
+          const a = p.alpha * twinkle;
+
+          ctx.beginPath();
+          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3.2);
+          if (p.isGold) {
+            grad.addColorStop(0, `rgba(243, 216, 120, ${a})`);
+            grad.addColorStop(0.5, `rgba(212, 175, 55, ${a * 0.45})`);
+            grad.addColorStop(1, 'rgba(212, 175, 55, 0)');
+          } else {
+            grad.addColorStop(0, `rgba(255, 215, 226, ${a * 0.8})`);
+            grad.addColorStop(1, 'rgba(160, 29, 74, 0)');
+          }
+          ctx.fillStyle = grad;
+          ctx.arc(p.x, p.y, p.r * 3.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        if (!prefersReduced) {
+          requestAnimationFrame(drawFrame);
+        }
+      }
+
+      resize();
+      createParticles();
+      requestAnimationFrame(drawFrame);
+      window.addEventListener('resize', () => {
+        resize();
+        createParticles();
+      });
+    }
+
+    // Инициализация иконок, карточек и анимаций
+    renderEvents('all');
+    lucide.createIcons();
+    initScrollReveal();
+    initBokehCanvas('hero-bokeh-canvas', 36);
+    initBokehCanvas('evening-bokeh-canvas', 28);
+  </script>
+</body>
+</html>
